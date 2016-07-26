@@ -30,6 +30,677 @@
   <div class ="centered">
 <strong><h1 class="centered">HEY</h1></strong>
 <em><p>My Name Is Shahan Neda</p></em>
+<p>
+// Note: In 0.8 and before, crypto functions all defaulted to using<br>
+// binary-encoded strings rather than buffers.<br>
+
+<br>'use strict';<br>
+
+<br>const internalUtil = require('internal/util');<br>
+internalUtil.assertCrypto(exports);<br>
+
+<br>exports.DEFAULT_ENCODING = 'buffer';<br>
+
+<br>const constants = process.binding('constants').crypto;<br>
+const binding = process.binding('crypto');<br>
+const randomBytes = binding.randomBytes;<br>
+const getCiphers = binding.getCiphers;<br>
+const getHashes = binding.getHashes;<br>
+const getCurves = binding.getCurves;<br>
+const getFipsCrypto = binding.getFipsCrypto;<br>
+const setFipsCrypto = binding.setFipsCrypto;<br>
+
+<br>const Buffer = require('buffer').Buffer;<br>
+const stream = require('stream');<br>
+const util = require('util');<br>
+const LazyTransform = require('internal/streams/lazy_transform');<br>
+
+<br>const DH_GENERATOR = 2;<br>
+
+<br>Object.defineProperty(exports, 'constants', {<br>
+  configurable: false,<br>
+  enumerable: true,<br>
+  value: constants<br>
+});<br>
+
+<br>// This is here because many functions accepted binary strings without<br>
+// any explicit encoding in older versions of node, and we don't want<br>
+// to break them unnecessarily.<br>
+function toBuf(str, encoding) {<br>
+  if (typeof str === 'string') {<br>
+    if (encoding === 'buffer' || !encoding)<br>
+      encoding = 'utf8';<br>
+    return Buffer.from(str, encoding);<br>
+  }<br>
+  return str;<br>
+}<br>
+exports._toBuf = toBuf;<br>
+
+<br>
+<br>const assert = require('assert');<br>
+const StringDecoder = require('string_decoder').StringDecoder;<br>
+
+<br>
+<br>exports.createHash = exports.Hash = Hash;<br>
+function Hash(algorithm, options) {<br>
+  if (!(this instanceof Hash))<br>
+    return new Hash(algorithm, options);<br>
+  this._handle = new binding.Hash(algorithm);<br>
+  LazyTransform.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Hash, LazyTransform);<br>
+
+<br>Hash.prototype._transform = function(chunk, encoding, callback) {<br>
+  this._handle.update(chunk, encoding);<br>
+  callback();<br>
+};<br>
+
+<br>Hash.prototype._flush = function(callback) {<br>
+  this.push(this._handle.digest());<br>
+  callback();<br>
+};<br>
+
+<br>Hash.prototype.update = function(data, encoding) {<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  this._handle.update(data, encoding);<br>
+  return this;<br>
+};<br>
+
+<br>
+<br>Hash.prototype.digest = function(outputEncoding) {<br>
+  outputEncoding = outputEncoding || exports.DEFAULT_ENCODING;<br>
+  return this._handle.digest(outputEncoding);<br>
+};<br>
+
+<br>
+<br>exports.createHmac = exports.Hmac = Hmac;<br>
+
+<br>function Hmac(hmac, key, options) {<br>
+  if (!(this instanceof Hmac))<br>
+    return new Hmac(hmac, key, options);<br>
+  this._handle = new binding.Hmac();<br>
+  this._handle.init(hmac, toBuf(key));<br>
+  LazyTransform.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Hmac, LazyTransform);<br>
+
+<br>Hmac.prototype.update = Hash.prototype.update;<br>
+Hmac.prototype.digest = Hash.prototype.digest;<br>
+Hmac.prototype._flush = Hash.prototype._flush;<br>
+Hmac.prototype._transform = Hash.prototype._transform;<br>
+
+<br>
+<br>function getDecoder(decoder, encoding) {<br>
+  if (encoding === 'utf-8') encoding = 'utf8';  // Normalize encoding.<br>
+  decoder = decoder || new StringDecoder(encoding);<br>
+  assert(decoder.encoding === encoding, 'Cannot change encoding');<br>
+  return decoder;<br>
+}<br>
+
+<br>
+<br>exports.createCipher = exports.Cipher = Cipher;<br>
+function Cipher(cipher, password, options) {<br>
+  if (!(this instanceof Cipher))<br>
+    return new Cipher(cipher, password, options);<br>
+  this._handle = new binding.CipherBase(true);<br>
+
+<br>  this._handle.init(cipher, toBuf(password));<br>
+  this._decoder = null;<br>
+
+<br>  LazyTransform.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Cipher, LazyTransform);<br>
+
+<br>Cipher.prototype._transform = function(chunk, encoding, callback) {<br>
+  this.push(this._handle.update(chunk, encoding));<br>
+  callback();<br>
+};<br>
+
+<br>Cipher.prototype._flush = function(callback) {<br>
+  try {<br>
+    this.push(this._handle.final());<br>
+  } catch (e) {<br>
+    callback(e);<br>
+    return;<br>
+  }<br>
+  callback();<br>
+};<br>
+
+<br>Cipher.prototype.update = function(data, inputEncoding, outputEncoding) {<br>
+  inputEncoding = inputEncoding || exports.DEFAULT_ENCODING;<br>
+  outputEncoding = outputEncoding || exports.DEFAULT_ENCODING;<br>
+
+<br>  var ret = this._handle.update(data, inputEncoding);<br>
+
+<br>  if (outputEncoding && outputEncoding !== 'buffer') {<br>
+    this._decoder = getDecoder(this._decoder, outputEncoding);<br>
+    ret = this._decoder.write(ret);<br>
+  }<br>
+
+<br>  return ret;<br>
+};<br>
+
+<br>
+<br>Cipher.prototype.final = function(outputEncoding) {<br>
+  outputEncoding = outputEncoding || exports.DEFAULT_ENCODING;<br>
+  var ret = this._handle.final();<br>
+
+<br>  if (outputEncoding && outputEncoding !== 'buffer') {<br>
+    this._decoder = getDecoder(this._decoder, outputEncoding);<br>
+    ret = this._decoder.end(ret);<br>
+  }<br>
+
+<br>  return ret;<br>
+};<br>
+
+<br>
+<br>Cipher.prototype.setAutoPadding = function(ap) {<br>
+  this._handle.setAutoPadding(ap);<br>
+  return this;<br>
+};<br>
+
+<br>Cipher.prototype.getAuthTag = function() {<br>
+  return this._handle.getAuthTag();<br>
+};<br>
+
+<br>
+<br>Cipher.prototype.setAuthTag = function(tagbuf) {<br>
+  this._handle.setAuthTag(tagbuf);<br>
+};<br>
+
+<br>Cipher.prototype.setAAD = function(aadbuf) {<br>
+  this._handle.setAAD(aadbuf);<br>
+};<br>
+
+<br>exports.createCipheriv = exports.Cipheriv = Cipheriv;<br>
+function Cipheriv(cipher, key, iv, options) {<br>
+  if (!(this instanceof Cipheriv))<br>
+    return new Cipheriv(cipher, key, iv, options);<br>
+  this._handle = new binding.CipherBase(true);<br>
+  this._handle.initiv(cipher, toBuf(key), toBuf(iv));<br>
+  this._decoder = null;<br>
+
+<br>  LazyTransform.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Cipheriv, LazyTransform);<br>
+
+<br>Cipheriv.prototype._transform = Cipher.prototype._transform;<br>
+Cipheriv.prototype._flush = Cipher.prototype._flush;<br>
+Cipheriv.prototype.update = Cipher.prototype.update;<br>
+Cipheriv.prototype.final = Cipher.prototype.final;<br>
+Cipheriv.prototype.setAutoPadding = Cipher.prototype.setAutoPadding;<br>
+Cipheriv.prototype.getAuthTag = Cipher.prototype.getAuthTag;<br>
+Cipheriv.prototype.setAuthTag = Cipher.prototype.setAuthTag;<br>
+Cipheriv.prototype.setAAD = Cipher.prototype.setAAD;<br>
+
+<br>exports.createDecipher = exports.Decipher = Decipher;<br>
+function Decipher(cipher, password, options) {<br>
+  if (!(this instanceof Decipher))<br>
+    return new Decipher(cipher, password, options);<br>
+
+<br>  this._handle = new binding.CipherBase(false);<br>
+  this._handle.init(cipher, toBuf(password));<br>
+  this._decoder = null;<br>
+
+<br>  LazyTransform.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Decipher, LazyTransform);<br>
+
+<br>Decipher.prototype._transform = Cipher.prototype._transform;<br>
+Decipher.prototype._flush = Cipher.prototype._flush;<br>
+Decipher.prototype.update = Cipher.prototype.update;<br>
+Decipher.prototype.final = Cipher.prototype.final;<br>
+Decipher.prototype.finaltol = Cipher.prototype.final;<br>
+Decipher.prototype.setAutoPadding = Cipher.prototype.setAutoPadding;<br>
+Decipher.prototype.getAuthTag = Cipher.prototype.getAuthTag;<br>
+Decipher.prototype.setAuthTag = Cipher.prototype.setAuthTag;<br>
+Decipher.prototype.setAAD = Cipher.prototype.setAAD;<br>
+
+<br>
+<br>exports.createDecipheriv = exports.Decipheriv = Decipheriv;<br>
+function Decipheriv(cipher, key, iv, options) {<br>
+  if (!(this instanceof Decipheriv))<br>
+    return new Decipheriv(cipher, key, iv, options);<br>
+
+<br>  this._handle = new binding.CipherBase(false);<br>
+  this._handle.initiv(cipher, toBuf(key), toBuf(iv));<br>
+  this._decoder = null;<br>
+
+<br>  LazyTransform.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Decipheriv, LazyTransform);<br>
+
+<br>Decipheriv.prototype._transform = Cipher.prototype._transform;<br>
+Decipheriv.prototype._flush = Cipher.prototype._flush;<br>
+Decipheriv.prototype.update = Cipher.prototype.update;<br>
+Decipheriv.prototype.final = Cipher.prototype.final;<br>
+Decipheriv.prototype.finaltol = Cipher.prototype.final;<br>
+Decipheriv.prototype.setAutoPadding = Cipher.prototype.setAutoPadding;<br>
+Decipheriv.prototype.getAuthTag = Cipher.prototype.getAuthTag;<br>
+Decipheriv.prototype.setAuthTag = Cipher.prototype.setAuthTag;<br>
+Decipheriv.prototype.setAAD = Cipher.prototype.setAAD;<br>
+
+<br>
+<br>exports.createSign = exports.Sign = Sign;<br>
+function Sign(algorithm, options) {<br>
+  if (!(this instanceof Sign))<br>
+    return new Sign(algorithm, options);<br>
+  this._handle = new binding.Sign();<br>
+  this._handle.init(algorithm);<br>
+
+<br>  stream.Writable.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Sign, stream.Writable);<br>
+
+<br>Sign.prototype._write = function(chunk, encoding, callback) {<br>
+  this._handle.update(chunk, encoding);<br>
+  callback();<br>
+};<br>
+
+<br>Sign.prototype.update = Hash.prototype.update;<br>
+
+<br>Sign.prototype.sign = function(options, encoding) {<br>
+  if (!options)<br>
+    throw new Error('No key provided to sign');<br>
+
+<br>  var key = options.key || options;<br>
+  var passphrase = options.passphrase || null;<br>
+  var ret = this._handle.sign(toBuf(key), null, passphrase);<br>
+
+<br>  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  if (encoding && encoding !== 'buffer')<br>
+    ret = ret.toString(encoding);<br>
+
+<br>  return ret;<br>
+};<br>
+
+<br>
+<br>exports.createVerify = exports.Verify = Verify;<br>
+function Verify(algorithm, options) {<br>
+  if (!(this instanceof Verify))<br>
+    return new Verify(algorithm, options);<br>
+
+<br>  this._handle = new binding.Verify();<br>
+  this._handle.init(algorithm);<br>
+
+<br>  stream.Writable.call(this, options);<br>
+}<br>
+
+<br>util.inherits(Verify, stream.Writable);<br>
+
+<br>Verify.prototype._write = Sign.prototype._write;<br>
+Verify.prototype.update = Sign.prototype.update;<br>
+
+<br>Verify.prototype.verify = function(object, signature, sigEncoding) {<br>
+  sigEncoding = sigEncoding || exports.DEFAULT_ENCODING;<br>
+  return this._handle.verify(toBuf(object), toBuf(signature, sigEncoding));<br>
+};<br>
+
+<br>function rsaPublic(method, defaultPadding) {<br>
+  return function(options, buffer) {<br>
+    var key = options.key || options;<br>
+    var padding = options.padding || defaultPadding;<br>
+    var passphrase = options.passphrase || null;<br>
+    return method(toBuf(key), buffer, padding, passphrase);<br>
+  };<br>
+}<br>
+
+<br>function rsaPrivate(method, defaultPadding) {<br>
+  return function(options, buffer) {<br>
+    var key = options.key || options;<br>
+    var passphrase = options.passphrase || null;<br>
+    var padding = options.padding || defaultPadding;<br>
+    return method(toBuf(key), buffer, padding, passphrase);<br>
+  };<br>
+}<br>
+
+<br>exports.publicEncrypt = rsaPublic(binding.publicEncrypt,<br>
+                                  constants.RSA_PKCS1_OAEP_PADDING);<br>
+exports.publicDecrypt = rsaPublic(binding.publicDecrypt,<br>
+                                  constants.RSA_PKCS1_PADDING);<br>
+exports.privateEncrypt = rsaPrivate(binding.privateEncrypt,<br>
+                                    constants.RSA_PKCS1_PADDING);<br>
+exports.privateDecrypt = rsaPrivate(binding.privateDecrypt,<br>
+                                    constants.RSA_PKCS1_OAEP_PADDING);<br>
+
+<br>
+<br>exports.createDiffieHellman = exports.DiffieHellman = DiffieHellman;<br>
+
+<br>function DiffieHellman(sizeOrKey, keyEncoding, generator, genEncoding) {<br>
+  if (!(this instanceof DiffieHellman))<br>
+    return new DiffieHellman(sizeOrKey, keyEncoding, generator, genEncoding);<br>
+
+<br>  if (!(sizeOrKey instanceof Buffer) &&<br>
+      typeof sizeOrKey !== 'number' &&<br>
+      typeof sizeOrKey !== 'string')<br>
+    throw new TypeError('First argument should be number, string or Buffer');<br>
+
+<br>  if (keyEncoding) {<br>
+    if (typeof keyEncoding !== 'string' ||<br>
+        (!Buffer.isEncoding(keyEncoding) && keyEncoding !== 'buffer')) {<br>
+      genEncoding = generator;<br>
+      generator = keyEncoding;<br>
+      keyEncoding = false;<br>
+    }<br>
+  }<br>
+
+<br>  keyEncoding = keyEncoding || exports.DEFAULT_ENCODING;<br>
+  genEncoding = genEncoding || exports.DEFAULT_ENCODING;<br>
+
+<br>  if (typeof sizeOrKey !== 'number')<br>
+    sizeOrKey = toBuf(sizeOrKey, keyEncoding);<br>
+
+<br>  if (!generator)<br>
+    generator = DH_GENERATOR;<br>
+  else if (typeof generator !== 'number')<br>
+    generator = toBuf(generator, genEncoding);<br>
+
+<br>  this._handle = new binding.DiffieHellman(sizeOrKey, generator);<br>
+  Object.defineProperty(this, 'verifyError', {<br>
+    enumerable: true,<br>
+    value: this._handle.verifyError,<br>
+    writable: false<br>
+  });<br>
+}<br>
+
+<br>
+<br>exports.DiffieHellmanGroup =<br>
+    exports.createDiffieHellmanGroup =<br>
+    exports.getDiffieHellman = DiffieHellmanGroup;<br>
+
+<br>function DiffieHellmanGroup(name) {<br>
+  if (!(this instanceof DiffieHellmanGroup))<br>
+    return new DiffieHellmanGroup(name);<br>
+  this._handle = new binding.DiffieHellmanGroup(name);<br>
+  Object.defineProperty(this, 'verifyError', {<br>
+    enumerable: true,<br>
+    value: this._handle.verifyError,<br>
+    writable: false<br>
+  });<br>
+}<br>
+
+<br>
+<br>DiffieHellmanGroup.prototype.generateKeys =<br>
+    DiffieHellman.prototype.generateKeys =<br>
+    dhGenerateKeys;<br>
+
+<br>function dhGenerateKeys(encoding) {<br>
+  var keys = this._handle.generateKeys();<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  if (encoding && encoding !== 'buffer')<br>
+    keys = keys.toString(encoding);<br>
+  return keys;<br>
+}<br>
+
+<br>
+<br>DiffieHellmanGroup.prototype.computeSecret =<br>
+    DiffieHellman.prototype.computeSecret =<br>
+    dhComputeSecret;<br>
+
+<br>function dhComputeSecret(key, inEnc, outEnc) {<br>
+  inEnc = inEnc || exports.DEFAULT_ENCODING;<br>
+  outEnc = outEnc || exports.DEFAULT_ENCODING;<br>
+  var ret = this._handle.computeSecret(toBuf(key, inEnc));<br>
+  if (outEnc && outEnc !== 'buffer')<br>
+    ret = ret.toString(outEnc);<br>
+  return ret;<br>
+}<br>
+
+<br>
+<br>DiffieHellmanGroup.prototype.getPrime =<br>
+    DiffieHellman.prototype.getPrime =<br>
+    dhGetPrime;<br>
+
+<br>function dhGetPrime(encoding) {<br>
+  var prime = this._handle.getPrime();<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  if (encoding && encoding !== 'buffer')<br>
+    prime = prime.toString(encoding);<br>
+  return prime;<br>
+}<br>
+
+<br>
+<br>DiffieHellmanGroup.prototype.getGenerator =<br>
+    DiffieHellman.prototype.getGenerator =<br>
+    dhGetGenerator;<br>
+
+<br>function dhGetGenerator(encoding) {<br>
+  var generator = this._handle.getGenerator();<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  if (encoding && encoding !== 'buffer')<br>
+    generator = generator.toString(encoding);<br>
+  return generator;<br>
+}<br>
+
+<br>
+<br>DiffieHellmanGroup.prototype.getPublicKey =<br>
+    DiffieHellman.prototype.getPublicKey =<br>
+    dhGetPublicKey;<br>
+
+<br>function dhGetPublicKey(encoding) {<br>
+  var key = this._handle.getPublicKey();<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  if (encoding && encoding !== 'buffer')<br>
+    key = key.toString(encoding);<br>
+  return key;<br>
+}<br>
+
+<br>
+<br>DiffieHellmanGroup.prototype.getPrivateKey =<br>
+    DiffieHellman.prototype.getPrivateKey =<br>
+    dhGetPrivateKey;<br>
+
+<br>function dhGetPrivateKey(encoding) {<br>
+  var key = this._handle.getPrivateKey();<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  if (encoding && encoding !== 'buffer')<br>
+    key = key.toString(encoding);<br>
+  return key;<br>
+}<br>
+
+<br>
+<br>DiffieHellman.prototype.setPublicKey = function(key, encoding) {<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  this._handle.setPublicKey(toBuf(key, encoding));<br>
+  return this;<br>
+};<br>
+
+<br>
+<br>DiffieHellman.prototype.setPrivateKey = function(key, encoding) {<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  this._handle.setPrivateKey(toBuf(key, encoding));<br>
+  return this;<br>
+};<br>
+
+<br>
+<br>function ECDH(curve) {<br>
+  if (typeof curve !== 'string')<br>
+    throw new TypeError('"curve" argument should be a string');<br>
+
+<br>  this._handle = new binding.ECDH(curve);<br>
+}<br>
+
+<br>exports.createECDH = function createECDH(curve) {<br>
+  return new ECDH(curve);<br>
+};<br>
+
+<br>ECDH.prototype.computeSecret = DiffieHellman.prototype.computeSecret;<br>
+ECDH.prototype.setPrivateKey = DiffieHellman.prototype.setPrivateKey;<br>
+ECDH.prototype.setPublicKey = DiffieHellman.prototype.setPublicKey;<br>
+ECDH.prototype.getPrivateKey = DiffieHellman.prototype.getPrivateKey;<br>
+
+<br>ECDH.prototype.generateKeys = function generateKeys(encoding, format) {<br>
+  this._handle.generateKeys();<br>
+
+<br>  return this.getPublicKey(encoding, format);<br>
+};<br>
+
+<br>ECDH.prototype.getPublicKey = function getPublicKey(encoding, format) {<br>
+  var f;<br>
+  if (format) {<br>
+    if (typeof format === 'number')<br>
+      f = format;<br>
+    if (format === 'compressed')<br>
+      f = constants.POINT_CONVERSION_COMPRESSED;<br>
+    else if (format === 'hybrid')<br>
+      f = constants.POINT_CONVERSION_HYBRID;<br>
+    // Default<br>
+    else if (format === 'uncompressed')<br>
+      f = constants.POINT_CONVERSION_UNCOMPRESSED;<br>
+    else<br>
+      throw new TypeError('Bad format: ' + format);<br>
+  } else {<br>
+    f = constants.POINT_CONVERSION_UNCOMPRESSED;<br>
+  }<br>
+  var key = this._handle.getPublicKey(f);<br>
+  encoding = encoding || exports.DEFAULT_ENCODING;<br>
+  if (encoding && encoding !== 'buffer')<br>
+    key = key.toString(encoding);<br>
+  return key;<br>
+};<br>
+
+<br>
+<br>const pbkdf2DeprecationWarning =<br>
+    internalUtil.deprecate(() => {}, 'crypto.pbkdf2 without specifying' +<br>
+      ' a digest is deprecated. Please specify a digest');<br>
+
+<br>
+<br>exports.pbkdf2 = function(password,<br>
+                          salt,<br>
+                          iterations,<br>
+                          keylen,<br>
+                          digest,<br>
+                          callback) {<br>
+  if (typeof digest === 'function') {<br>
+    callback = digest;<br>
+    digest = undefined;<br>
+    pbkdf2DeprecationWarning();<br>
+  }<br>
+
+<br>  if (typeof callback !== 'function')<br>
+    throw new Error('No callback provided to pbkdf2');<br>
+
+<br>  return pbkdf2(password, salt, iterations, keylen, digest, callback);<br>
+};<br>
+
+<br>
+<br>exports.pbkdf2Sync = function(password, salt, iterations, keylen, digest) {<br>
+  if (typeof digest === 'undefined') {<br>
+    digest = undefined;<br>
+    pbkdf2DeprecationWarning();<br>
+  }<br>
+  return pbkdf2(password, salt, iterations, keylen, digest);<br>
+};<br>
+
+<br>
+<br>function pbkdf2(password, salt, iterations, keylen, digest, callback) {<br>
+  password = toBuf(password);<br>
+  salt = toBuf(salt);<br>
+
+<br>  if (exports.DEFAULT_ENCODING === 'buffer')<br>
+    return binding.PBKDF2(password, salt, iterations, keylen, digest, callback);<br>
+
+<br>  // at this point, we need to handle encodings.<br>
+  var encoding = exports.DEFAULT_ENCODING;<br>
+  if (callback) {<br>
+    var next = function(er, ret) {<br>
+      if (ret)<br>
+        ret = ret.toString(encoding);<br>
+      callback(er, ret);<br>
+    };<br>
+    binding.PBKDF2(password, salt, iterations, keylen, digest, next);<br>
+  } else {<br>
+    var ret = binding.PBKDF2(password, salt, iterations, keylen, digest);<br>
+    return ret.toString(encoding);<br>
+  }<br>
+}<br>
+
+<br>
+<br>exports.Certificate = Certificate;<br>
+
+<br>function Certificate() {<br>
+  if (!(this instanceof Certificate))<br>
+    return new Certificate();<br>
+}<br>
+
+<br>
+<br>Certificate.prototype.verifySpkac = function(object) {<br>
+  return binding.certVerifySpkac(object);<br>
+};<br>
+
+<br>
+<br>Certificate.prototype.exportPublicKey = function(object, encoding) {<br>
+  return binding.certExportPublicKey(toBuf(object, encoding));<br>
+};<br>
+
+<br>
+<br>Certificate.prototype.exportChallenge = function(object, encoding) {<br>
+  return binding.certExportChallenge(toBuf(object, encoding));<br>
+};<br>
+
+<br>
+<br>exports.setEngine = function setEngine(id, flags) {<br>
+  if (typeof id !== 'string')<br>
+    throw new TypeError('"id" argument should be a string');<br>
+
+<br>  if (flags && typeof flags !== 'number')<br>
+    throw new TypeError('"flags" argument should be a number, if present');<br>
+  flags = flags >>> 0;<br>
+
+<br>  // Use provided engine for everything by default<br>
+  if (flags === 0)<br>
+    flags = constants.ENGINE_METHOD_ALL;<br>
+
+<br>  return binding.setEngine(id, flags);<br>
+};<br>
+
+<br>exports.randomBytes = exports.pseudoRandomBytes = randomBytes;<br>
+
+<br>exports.rng = exports.prng = randomBytes;<br>
+
+<br>exports.getCiphers = internalUtil.cachedResult(() => {<br>
+  return internalUtil.filterDuplicateStrings(getCiphers());<br>
+});<br>
+
+<br>exports.getHashes = internalUtil.cachedResult(() => {<br>
+  return internalUtil.filterDuplicateStrings(getHashes());<br>
+});<br>
+
+<br>exports.getCurves = internalUtil.cachedResult(() => {<br>
+  return internalUtil.filterDuplicateStrings(getCurves());<br>
+});<br>
+
+<br>Object.defineProperty(exports, 'fips', {<br>
+  get: getFipsCrypto,<br>
+  set: setFipsCrypto<br>
+});<br>
+
+<br>// Legacy API<br>
+Object.defineProperty(exports, 'createCredentials', {<br>
+  configurable: true,<br>
+  enumerable: true,<br>
+  get: internalUtil.deprecate(function() {<br>
+    return require('tls').createSecureContext;<br>
+  }, 'crypto.createCredentials is deprecated. ' +<br>
+     'Use tls.createSecureContext instead.')<br>
+});<br>
+
+<br>Object.defineProperty(exports, 'Credentials', {<br>
+  configurable: true,<br>
+  enumerable: true,<br>
+  get: internalUtil.deprecate(function() {<br>
+    return require('tls').SecureContext;<br>
+  }, 'crypto.Credentials is deprecated. ' +<br>
+     'Use tls.SecureContext instead.')<br>
+});<br>
+</p>
 </div>
 </body>
 </html>
