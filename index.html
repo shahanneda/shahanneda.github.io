@@ -2,13 +2,1652 @@
 <html>
 <head>
   <style>
+  .show{
+  	overflow-y: hidden
+  	height: 100px;
+
+  }
+	.text_code{
+		color:white;
+  	}
+  	body{
+  		background-color: black;
+  	}
+  	.shahanneda{
+  		color:red;
+  		font-size: 200px;
+  		text-align: center;
+  	}
+  	.shahanneda2{
+  		color:blue;
+  		font-size: 50px;
+  		text-align: center;
+  	}
+  	.shahanneda3{
+  		color:orange;
+  		font-size: 30px;
+  		text-align: left;
+  	}
+  	.shahanneda4{
+  		color:pink;
+  		font-size: 25px;
+  		text-align: left;
+  	}
   </style>
 </head>
 <body>
-  <div class ="centered">
-<strong><h1 class="centered">HEY</h1></strong>
-<em><p>My Name Is Shahan Neda</p></em>
-<p>
+ <div>
+<!-- <strong><h1 class="centered">HEY</h1></strong> -->
+<em><p class="shahanneda">Shahan Neda Realm</p></em>
+<em><p class="shahanneda2">Loading, Please Wait</p></em>
+
+<em><p class="shahanneda3">Can you find whats wrong with this room?</p></em>
+<em><p class="shahanneda4">Click on the wrong thing</p></em>
+
+<embed src="http://www.reece-eu.net/room/room.swf" quality="high" width="1024" height="768" type="application/x-shockwave-flash" pluginbase="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
+
+<div class="Show"></div>
+<marquee behavior="scroll" direction="down" scrollamount="20" style="height:1000px;"><p class="text_code">
+'use strict';<br>
+
+<br>const inspect = require('util').inspect;<br>
+
+<br>function assertPath(path) {<br>
+  if (typeof path !== 'string') {<br>
+    throw new TypeError('Path must be a string. Received ' + inspect(path));<br>
+  }<br>
+}<br>
+
+<br>// Resolves . and .. elements in a path with directory names<br>
+function normalizeStringWin32(path, allowAboveRoot) {<br>
+  var res = '';<br>
+  var lastSlash = -1;<br>
+  var dots = 0;<br>
+  var code;<br>
+  for (var i = 0; i <= path.length; ++i) {<br>
+    if (i < path.length)<br>
+      code = path.charCodeAt(i);<br>
+    else if (code === 47/*/*/ || code === 92/*\*/)<br>
+      break;<br>
+    else<br>
+      code = 47/*/*/;<br>
+    if (code === 47/*/*/ || code === 92/*\*/) {<br>
+      if (lastSlash === i - 1 || dots === 1) {<br>
+        // NOOP<br>
+      } else if (lastSlash !== i - 1 && dots === 2) {<br>
+        if (res.length < 2 ||<br>
+            res.charCodeAt(res.length - 1) !== 46/*.*/ ||<br>
+            res.charCodeAt(res.length - 2) !== 46/*.*/) {<br>
+          if (res.length > 2) {<br>
+            const start = res.length - 1;<br>
+            var j = start;<br>
+            for (; j >= 0; --j) {<br>
+              if (res.charCodeAt(j) === 92/*\*/)<br>
+                break;<br>
+            }<br>
+            if (j !== start) {<br>
+              if (j === -1)<br>
+                res = '';<br>
+              else<br>
+                res = res.slice(0, j);<br>
+              lastSlash = i;<br>
+              dots = 0;<br>
+              continue;<br>
+            }<br>
+          } else if (res.length === 2 || res.length === 1) {<br>
+            res = '';<br>
+            lastSlash = i;<br>
+            dots = 0;<br>
+            continue;<br>
+          }<br>
+        }<br>
+        if (allowAboveRoot) {<br>
+          if (res.length > 0)<br>
+            res += '\\..';<br>
+          else<br>
+            res = '..';<br>
+        }<br>
+      } else {<br>
+        if (res.length > 0)<br>
+          res += '\\' + path.slice(lastSlash + 1, i);<br>
+        else<br>
+          res = path.slice(lastSlash + 1, i);<br>
+      }<br>
+      lastSlash = i;<br>
+      dots = 0;<br>
+    } else if (code === 46/*.*/ && dots !== -1) {<br>
+      ++dots;<br>
+    } else {<br>
+      dots = -1;<br>
+    }<br>
+  }<br>
+  return res;<br>
+}<br>
+
+<br>// Resolves . and .. elements in a path with directory names<br>
+function normalizeStringPosix(path, allowAboveRoot) {<br>
+  var res = '';<br>
+  var lastSlash = -1;<br>
+  var dots = 0;<br>
+  var code;<br>
+  for (var i = 0; i <= path.length; ++i) {<br>
+    if (i < path.length)<br>
+      code = path.charCodeAt(i);<br>
+    else if (code === 47/*/*/)<br>
+      break;<br>
+    else<br>
+      code = 47/*/*/;<br>
+    if (code === 47/*/*/) {<br>
+      if (lastSlash === i - 1 || dots === 1) {<br>
+        // NOOP<br>
+      } else if (lastSlash !== i - 1 && dots === 2) {<br>
+        if (res.length < 2 ||<br>
+            res.charCodeAt(res.length - 1) !== 46/*.*/ ||<br>
+            res.charCodeAt(res.length - 2) !== 46/*.*/) {<br>
+          if (res.length > 2) {<br>
+            const start = res.length - 1;<br>
+            var j = start;<br>
+            for (; j >= 0; --j) {<br>
+              if (res.charCodeAt(j) === 47/*/*/)<br>
+                break;<br>
+            }<br>
+            if (j !== start) {<br>
+              if (j === -1)<br>
+                res = '';<br>
+              else<br>
+                res = res.slice(0, j);<br>
+              lastSlash = i;<br>
+              dots = 0;<br>
+              continue;<br>
+            }<br>
+          } else if (res.length === 2 || res.length === 1) {<br>
+            res = '';<br>
+            lastSlash = i;<br>
+            dots = 0;<br>
+            continue;<br>
+          }<br>
+        }<br>
+        if (allowAboveRoot) {<br>
+          if (res.length > 0)<br>
+            res += '/..';<br>
+          else<br>
+            res = '..';<br>
+        }<br>
+      } else {<br>
+        if (res.length > 0)<br>
+          res += '/' + path.slice(lastSlash + 1, i);<br>
+        else<br>
+          res = path.slice(lastSlash + 1, i);<br>
+      }<br>
+      lastSlash = i;<br>
+      dots = 0;<br>
+    } else if (code === 46/*.*/ && dots !== -1) {<br>
+      ++dots;<br>
+    } else {<br>
+      dots = -1;<br>
+    }<br>
+  }<br>
+  return res;<br>
+}<br>
+
+<br>function _format(sep, pathObject) {<br>
+  const dir = pathObject.dir || pathObject.root;<br>
+  const base = pathObject.base ||<br>
+    ((pathObject.name || '') + (pathObject.ext || ''));<br>
+  if (!dir) {<br>
+    return base;<br>
+  }<br>
+  if (dir === pathObject.root) {<br>
+    return dir + base;<br>
+  }<br>
+  return dir + sep + base;<br>
+}<br>
+
+<br>const win32 = {<br>
+  // path.resolve([from ...], to)<br>
+  resolve: function resolve() {<br>
+    var resolvedDevice = '';<br>
+    var resolvedTail = '';<br>
+    var resolvedAbsolute = false;<br>
+
+<br>    for (var i = arguments.length - 1; i >= -1; i--) {<br>
+      var path;<br>
+      if (i >= 0) {<br>
+        path = arguments[i];<br>
+      } else if (!resolvedDevice) {<br>
+        path = process.cwd();<br>
+      } else {<br>
+        // Windows has the concept of drive-specific current working<br>
+        // directories. If we've resolved a drive letter but not yet an<br>
+        // absolute path, get cwd for that drive. We're sure the device is not<br>
+        // a UNC path at this points, because UNC paths are always absolute.<br>
+        path = process.env['=' + resolvedDevice];<br>
+        // Verify that a drive-local cwd was found and that it actually points<br>
+        // to our drive. If not, default to the drive's root.<br>
+        if (path === undefined ||<br>
+            path.slice(0, 3).toLowerCase() !==<br>
+              resolvedDevice.toLowerCase() + '\\') {<br>
+          path = resolvedDevice + '\\';<br>
+        }<br>
+      }<br>
+
+<br>      assertPath(path);<br>
+
+<br>      // Skip empty entries<br>
+      if (path.length === 0) {<br>
+        continue;<br>
+      }<br>
+
+<br>      var len = path.length;<br>
+      var rootEnd = 0;<br>
+      var code = path.charCodeAt(0);<br>
+      var device = '';<br>
+      var isAbsolute = false;<br>
+
+<br>      // Try to match a root<br>
+      if (len > 1) {<br>
+        if (code === 47/*/*/ || code === 92/*\*/) {<br>
+          // Possible UNC root<br>
+
+<br>          // If we started with a separator, we know we at least have an<br>
+          // absolute path of some kind (UNC or otherwise)<br>
+          isAbsolute = true;<br>
+
+<br>          code = path.charCodeAt(1);<br>
+          if (code === 47/*/*/ || code === 92/*\*/) {<br>
+            // Matched double path separator at beginning<br>
+            var j = 2;<br>
+            var last = j;<br>
+            // Match 1 or more non-path separators<br>
+            for (; j < len; ++j) {<br>
+              code = path.charCodeAt(j);<br>
+              if (code === 47/*/*/ || code === 92/*\*/)<br>
+                break;<br>
+            }<br>
+            if (j < len && j !== last) {<br>
+              const firstPart = path.slice(last, j);<br>
+              // Matched!<br>
+              last = j;<br>
+              // Match 1 or more path separators<br>
+              for (; j < len; ++j) {<br>
+                code = path.charCodeAt(j);<br>
+                if (code !== 47/*/*/ && code !== 92/*\*/)<br>
+                  break;<br>
+              }<br>
+              if (j < len && j !== last) {<br>
+                // Matched!<br>
+                last = j;<br>
+                // Match 1 or more non-path separators<br>
+                for (; j < len; ++j) {<br>
+                  code = path.charCodeAt(j);<br>
+                  if (code === 47/*/*/ || code === 92/*\*/)<br>
+                    break;<br>
+                }<br>
+                if (j === len) {<br>
+                  // We matched a UNC root only<br>
+
+<br>                  device = '\\\\' + firstPart + '\\' + path.slice(last);<br>
+                  rootEnd = j;<br>
+                } else if (j !== last) {<br>
+                  // We matched a UNC root with leftovers<br>
+
+<br>                  device = '\\\\' + firstPart + '\\' + path.slice(last, j);<br>
+                  rootEnd = j;<br>
+                }<br>
+              }<br>
+            }<br>
+          } else {<br>
+            rootEnd = 1;<br>
+          }<br>
+        } else if ((code >= 65/*A*/ && code <= 90/*Z*/) ||<br>
+                   (code >= 97/*a*/ && code <= 122/*z*/)) {<br>
+          // Possible device root<br>
+
+<br>          code = path.charCodeAt(1);<br>
+          if (path.charCodeAt(1) === 58/*:*/) {<br>
+            device = path.slice(0, 2);<br>
+            rootEnd = 2;<br>
+            if (len > 2) {<br>
+              code = path.charCodeAt(2);<br>
+              if (code === 47/*/*/ || code === 92/*\*/) {<br>
+                // Treat separator following drive name as an absolute path<br>
+                // indicator<br>
+                isAbsolute = true;<br>
+                rootEnd = 3;<br>
+              }<br>
+            }<br>
+          }<br>
+        }<br>
+      } else if (code === 47/*/*/ || code === 92/*\*/) {<br>
+        // `path` contains just a path separator<br>
+        rootEnd = 1;<br>
+        isAbsolute = true;<br>
+      }<br>
+
+<br>      if (device.length > 0 &&<br>
+          resolvedDevice.length > 0 &&<br>
+          device.toLowerCase() !== resolvedDevice.toLowerCase()) {<br>
+        // This path points to another device so it is not applicable<br>
+        continue;<br>
+      }<br>
+
+<br>      if (resolvedDevice.length === 0 && device.length > 0) {<br>
+        resolvedDevice = device;<br>
+      }<br>
+      if (!resolvedAbsolute) {<br>
+        resolvedTail = path.slice(rootEnd) + '\\' + resolvedTail;<br>
+        resolvedAbsolute = isAbsolute;<br>
+      }<br>
+
+<br>      if (resolvedDevice.length > 0 && resolvedAbsolute) {<br>
+        break;<br>
+      }<br>
+    }<br>
+
+<br>    // At this point the path should be resolved to a full absolute path,<br>
+    // but handle relative paths to be safe (might happen when process.cwd()<br>
+    // fails)<br>
+
+<br>    // Normalize the tail path<br>
+    resolvedTail = normalizeStringWin32(resolvedTail, !resolvedAbsolute);<br>
+
+<br>    return (resolvedDevice + (resolvedAbsolute ? '\\' : '') + resolvedTail) ||<br>
+           '.';<br>
+  },<br>
+
+<br>  normalize: function normalize(path) {<br>
+    assertPath(path);<br>
+    const len = path.length;<br>
+    if (len === 0)<br>
+      return '.';<br>
+    var rootEnd = 0;<br>
+    var code = path.charCodeAt(0);<br>
+    var device;<br>
+    var isAbsolute = false;<br>
+
+<br>    // Try to match a root<br>
+    if (len > 1) {<br>
+      if (code === 47/*/*/ || code === 92/*\*/) {<br>
+        // Possible UNC root<br>
+
+<br>        // If we started with a separator, we know we at least have an absolute<br>
+        // path of some kind (UNC or otherwise)<br>
+        isAbsolute = true;<br>
+
+<br>        code = path.charCodeAt(1);<br>
+        if (code === 47/*/*/ || code === 92/*\*/) {<br>
+          // Matched double path separator at beginning<br>
+          var j = 2;<br>
+          var last = j;<br>
+          // Match 1 or more non-path separators<br>
+          for (; j < len; ++j) {<br>
+            code = path.charCodeAt(j);<br>
+            if (code === 47/*/*/ || code === 92/*\*/)<br>
+              break;<br>
+          }<br>
+          if (j < len && j !== last) {<br>
+            const firstPart = path.slice(last, j);<br>
+            // Matched!<br>
+            last = j;<br>
+            // Match 1 or more path separators<br>
+            for (; j < len; ++j) {<br>
+              code = path.charCodeAt(j);<br>
+              if (code !== 47/*/*/ && code !== 92/*\*/)<br>
+                break;<br>
+            }<br>
+            if (j < len && j !== last) {<br>
+              // Matched!<br>
+              last = j;<br>
+              // Match 1 or more non-path separators<br>
+              for (; j < len; ++j) {<br>
+                code = path.charCodeAt(j);<br>
+                if (code === 47/*/*/ || code === 92/*\*/)<br>
+                  break;<br>
+              }<br>
+              if (j === len) {<br>
+                // We matched a UNC root only<br>
+                // Return the normalized version of the UNC root since there<br>
+                // is nothing left to process<br>
+
+<br>                return '\\\\' + firstPart + '\\' + path.slice(last) + '\\';<br>
+              } else if (j !== last) {<br>
+                // We matched a UNC root with leftovers<br>
+
+<br>                device = '\\\\' + firstPart + '\\' + path.slice(last, j);<br>
+                rootEnd = j;<br>
+              }<br>
+            }<br>
+          }<br>
+        } else {<br>
+          rootEnd = 1;<br>
+        }<br>
+      } else if ((code >= 65/*A*/ && code <= 90/*Z*/) ||<br>
+                 (code >= 97/*a*/ && code <= 122/*z*/)) {<br>
+        // Possible device root<br>
+
+<br>        code = path.charCodeAt(1);<br>
+        if (path.charCodeAt(1) === 58/*:*/) {<br>
+          device = path.slice(0, 2);<br>
+          rootEnd = 2;<br>
+          if (len > 2) {<br>
+            code = path.charCodeAt(2);<br>
+            if (code === 47/*/*/ || code === 92/*\*/) {<br>
+              // Treat separator following drive name as an absolute path<br>
+              // indicator<br>
+              isAbsolute = true;<br>
+              rootEnd = 3;<br>
+            }<br>
+          }<br>
+        }<br>
+      }<br>
+    } else if (code === 47/*/*/ || code === 92/*\*/) {<br>
+      // `path` contains just a path separator, exit early to avoid unnecessary<br>
+      // work<br>
+      return '\\';<br>
+    }<br>
+
+<br>    code = path.charCodeAt(len - 1);<br>
+    var trailingSeparator = (code === 47/*/*/ || code === 92/*\*/);<br>
+    var tail;<br>
+    if (rootEnd < len)<br>
+      tail = normalizeStringWin32(path.slice(rootEnd), !isAbsolute);<br>
+    else<br>
+      tail = '';<br>
+    if (tail.length === 0 && !isAbsolute)<br>
+      tail = '.';<br>
+    if (tail.length > 0 && trailingSeparator)<br>
+      tail += '\\';<br>
+    if (device === undefined) {<br>
+      if (isAbsolute) {<br>
+        if (tail.length > 0)<br>
+          return '\\' + tail;<br>
+        else<br>
+          return '\\';<br>
+      } else if (tail.length > 0) {<br>
+        return tail;<br>
+      } else {<br>
+        return '';<br>
+      }<br>
+    } else {<br>
+      if (isAbsolute) {<br>
+        if (tail.length > 0)<br>
+          return device + '\\' + tail;<br>
+        else<br>
+          return device + '\\';<br>
+      } else if (tail.length > 0) {<br>
+        return device + tail;<br>
+      } else {<br>
+        return device;<br>
+      }<br>
+    }<br>
+  },<br>
+
+<br>
+<br>  isAbsolute: function isAbsolute(path) {<br>
+    assertPath(path);<br>
+    const len = path.length;<br>
+    if (len === 0)<br>
+      return false;<br>
+    var code = path.charCodeAt(0);<br>
+    if (code === 47/*/*/ || code === 92/*\*/) {<br>
+      return true;<br>
+    } else if ((code >= 65/*A*/ && code <= 90/*Z*/) ||<br>
+               (code >= 97/*a*/ && code <= 122/*z*/)) {<br>
+      // Possible device root<br>
+
+<br>      if (len > 2 && path.charCodeAt(1) === 58/*:*/) {<br>
+        code = path.charCodeAt(2);<br>
+        if (code === 47/*/*/ || code === 92/*\*/)<br>
+          return true;<br>
+      }<br>
+    }<br>
+    return false;<br>
+  },<br>
+
+<br>
+<br>  join: function join() {<br>
+    if (arguments.length === 0)<br>
+      return '.';<br>
+
+<br>    var joined;<br>
+    var firstPart;<br>
+    for (var i = 0; i < arguments.length; ++i) {<br>
+      var arg = arguments[i];<br>
+      assertPath(arg);<br>
+      if (arg.length > 0) {<br>
+        if (joined === undefined)<br>
+          joined = firstPart = arg;<br>
+        else<br>
+          joined += '\\' + arg;<br>
+      }<br>
+    }<br>
+
+<br>    if (joined === undefined)<br>
+      return '.';<br>
+
+<br>    // Make sure that the joined path doesn't start with two slashes, because<br>
+    // normalize() will mistake it for an UNC path then.<br>
+    //<br>
+    // This step is skipped when it is very clear that the user actually<br>
+    // intended to point at an UNC path. This is assumed when the first<br>
+    // non-empty string arguments starts with exactly two slashes followed by<br>
+    // at least one more non-slash character.<br>
+    //<br>
+    // Note that for normalize() to treat a path as an UNC path it needs to<br>
+    // have at least 2 components, so we don't filter for that here.<br>
+    // This means that the user can use join to construct UNC paths from<br>
+    // a server name and a share name; for example:<br>
+    //   path.join('//server', 'share') -> '\\\\server\\share\\')<br>
+    //var firstPart = paths[0];<br>
+    var needsReplace = true;<br>
+    var slashCount = 0;<br>
+    var code = firstPart.charCodeAt(0);<br>
+    if (code === 47/*/*/ || code === 92/*\*/) {<br>
+      ++slashCount;<br>
+      const firstLen = firstPart.length;<br>
+      if (firstLen > 1) {<br>
+        code = firstPart.charCodeAt(1);<br>
+        if (code === 47/*/*/ || code === 92/*\*/) {<br>
+          ++slashCount;<br>
+          if (firstLen > 2) {<br>
+            code = firstPart.charCodeAt(2);<br>
+            if (code === 47/*/*/ || code === 92/*\*/)<br>
+              ++slashCount;<br>
+            else {<br>
+              // We matched a UNC path in the first part<br>
+              needsReplace = false;<br>
+            }<br>
+          }<br>
+        }<br>
+      }<br>
+    }<br>
+    if (needsReplace) {<br>
+      // Find any more consecutive slashes we need to replace<br>
+      for (; slashCount < joined.length; ++slashCount) {<br>
+        code = joined.charCodeAt(slashCount);<br>
+        if (code !== 47/*/*/ && code !== 92/*\*/)<br>
+          break;<br>
+      }<br>
+
+<br>      // Replace the slashes if needed<br>
+      if (slashCount >= 2)<br>
+        joined = '\\' + joined.slice(slashCount);<br>
+    }<br>
+
+<br>    return win32.normalize(joined);<br>
+  },<br>
+
+<br>
+<br>  // It will solve the relative path from `from` to `to`, for instance:<br>
+  //  from = 'C:\\orandea\\test\\aaa'<br>
+  //  to = 'C:\\orandea\\impl\\bbb'<br>
+  // The output of the function should be: '..\\..\\impl\\bbb'<br>
+  relative: function relative(from, to) {<br>
+    assertPath(from);<br>
+    assertPath(to);<br>
+
+<br>    if (from === to)<br>
+      return '';<br>
+
+<br>    var fromOrig = win32.resolve(from);<br>
+    var toOrig = win32.resolve(to);<br>
+
+<br>    if (fromOrig === toOrig)<br>
+      return '';<br>
+
+<br>    from = fromOrig.toLowerCase();<br>
+    to = toOrig.toLowerCase();<br>
+
+<br>    if (from === to)<br>
+      return '';<br>
+
+<br>    // Trim any leading backslashes<br>
+    var fromStart = 0;<br>
+    for (; fromStart < from.length; ++fromStart) {<br>
+      if (from.charCodeAt(fromStart) !== 92/*\*/)<br>
+        break;<br>
+    }<br>
+    // Trim trailing backslashes (applicable to UNC paths only)<br>
+    var fromEnd = from.length;<br>
+    for (; fromEnd - 1 > fromStart; --fromEnd) {<br>
+      if (from.charCodeAt(fromEnd - 1) !== 92/*\*/)<br>
+        break;<br>
+    }<br>
+    var fromLen = (fromEnd - fromStart);<br>
+
+<br>    // Trim any leading backslashes<br>
+    var toStart = 0;<br>
+    for (; toStart < to.length; ++toStart) {<br>
+      if (to.charCodeAt(toStart) !== 92/*\*/)<br>
+        break;<br>
+    }<br>
+    // Trim trailing backslashes (applicable to UNC paths only)<br>
+    var toEnd = to.length;<br>
+    for (; toEnd - 1 > toStart; --toEnd) {<br>
+      if (to.charCodeAt(toEnd - 1) !== 92/*\*/)<br>
+        break;<br>
+    }<br>
+    var toLen = (toEnd - toStart);<br>
+
+<br>    // Compare paths to find the longest common path from root<br>
+    var length = (fromLen < toLen ? fromLen : toLen);<br>
+    var lastCommonSep = -1;<br>
+    var i = 0;<br>
+    for (; i <= length; ++i) {<br>
+      if (i === length) {<br>
+        if (toLen > length) {<br>
+          if (to.charCodeAt(toStart + i) === 92/*\*/) {<br>
+            // We get here if `from` is the exact base path for `to`.<br>
+            // For example: from='C:\\foo\\bar'; to='C:\\foo\\bar\\baz'<br>
+            return toOrig.slice(toStart + i + 1);<br>
+          } else if (i === 2) {<br>
+            // We get here if `from` is the device root.<br>
+            // For example: from='C:\\'; to='C:\\foo'<br>
+            return toOrig.slice(toStart + i);<br>
+          }<br>
+        }<br>
+        if (fromLen > length) {<br>
+          if (from.charCodeAt(fromStart + i) === 92/*\*/) {<br>
+            // We get here if `to` is the exact base path for `from`.<br>
+            // For example: from='C:\\foo\\bar'; to='C:\\foo'<br>
+            lastCommonSep = i;<br>
+          } else if (i === 2) {<br>
+            // We get here if `to` is the device root.<br>
+            // For example: from='C:\\foo\\bar'; to='C:\\'<br>
+            lastCommonSep = 3;<br>
+          }<br>
+        }<br>
+        break;<br>
+      }<br>
+      var fromCode = from.charCodeAt(fromStart + i);<br>
+      var toCode = to.charCodeAt(toStart + i);<br>
+      if (fromCode !== toCode)<br>
+        break;<br>
+      else if (fromCode === 92/*\*/)<br>
+        lastCommonSep = i;<br>
+    }<br>
+
+<br>    // We found a mismatch before the first common path separator was seen, so<br>
+    // return the original `to`.<br>
+    // TODO: do this just for device roots (and not UNC paths)?<br>
+    if (i !== length && lastCommonSep === -1) {<br>
+      if (toStart > 0)<br>
+        return toOrig.slice(toStart);<br>
+      else<br>
+        return toOrig;<br>
+    }<br>
+
+<br>    var out = '';<br>
+    if (lastCommonSep === -1)<br>
+      lastCommonSep = 0;<br>
+    // Generate the relative path based on the path difference between `to` and<br>
+    // `from`<br>
+    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {<br>
+      if (i === fromEnd || from.charCodeAt(i) === 92/*\*/) {<br>
+        if (out.length === 0)<br>
+          out += '..';<br>
+        else<br>
+          out += '\\..';<br>
+      }<br>
+    }<br>
+
+<br>    // Lastly, append the rest of the destination (`to`) path that comes after<br>
+    // the common path parts<br>
+    if (out.length > 0)<br>
+      return out + toOrig.slice(toStart + lastCommonSep, toEnd);<br>
+    else {<br>
+      toStart += lastCommonSep;<br>
+      if (toOrig.charCodeAt(toStart) === 92/*\*/)<br>
+        ++toStart;<br>
+      return toOrig.slice(toStart, toEnd);<br>
+    }<br>
+  },<br>
+
+<br>
+<br>  _makeLong: function _makeLong(path) {<br>
+    // Note: this will *probably* throw somewhere.<br>
+    if (typeof path !== 'string')<br>
+      return path;<br>
+
+<br>    if (path.length === 0) {<br>
+      return '';<br>
+    }<br>
+
+<br>    const resolvedPath = win32.resolve(path);<br>
+
+<br>    if (resolvedPath.length >= 3) {<br>
+      var code = resolvedPath.charCodeAt(0);<br>
+      if (code === 92/*\*/) {<br>
+        // Possible UNC root<br>
+
+<br>        if (resolvedPath.charCodeAt(1) === 92/*\*/) {<br>
+          code = resolvedPath.charCodeAt(2);<br>
+          if (code !== 63/*?*/ && code !== 46/*.*/) {<br>
+            // Matched non-long UNC root, convert the path to a long UNC path<br>
+            return '\\\\?\\UNC\\' + resolvedPath.slice(2);<br>
+          }<br>
+        }<br>
+      } else if ((code >= 65/*A*/ && code <= 90/*Z*/) ||<br>
+                 (code >= 97/*a*/ && code <= 122/*z*/)) {<br>
+        // Possible device root<br>
+
+<br>        if (resolvedPath.charCodeAt(1) === 58/*:*/ &&<br>
+            resolvedPath.charCodeAt(2) === 92/*\*/) {<br>
+          // Matched device root, convert the path to a long UNC path<br>
+          return '\\\\?\\' + resolvedPath;<br>
+        }<br>
+      }<br>
+    }<br>
+
+<br>    return path;<br>
+  },<br>
+
+<br>
+<br>  dirname: function dirname(path) {<br>
+    assertPath(path);<br>
+    const len = path.length;<br>
+    if (len === 0)<br>
+      return '.';<br>
+    var rootEnd = -1;<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    var offset = 0;<br>
+    var code = path.charCodeAt(0);<br>
+
+<br>    // Try to match a root<br>
+    if (len > 1) {<br>
+      if (code === 47/*/*/ || code === 92/*\*/) {<br>
+        // Possible UNC root<br>
+
+<br>        rootEnd = offset = 1;<br>
+
+<br>        code = path.charCodeAt(1);<br>
+        if (code === 47/*/*/ || code === 92/*\*/) {<br>
+          // Matched double path separator at beginning<br>
+          var j = 2;<br>
+          var last = j;<br>
+          // Match 1 or more non-path separators<br>
+          for (; j < len; ++j) {<br>
+            code = path.charCodeAt(j);<br>
+            if (code === 47/*/*/ || code === 92/*\*/)<br>
+              break;<br>
+          }<br>
+          if (j < len && j !== last) {<br>
+            // Matched!<br>
+            last = j;<br>
+            // Match 1 or more path separators<br>
+            for (; j < len; ++j) {<br>
+              code = path.charCodeAt(j);<br>
+              if (code !== 47/*/*/ && code !== 92/*\*/)<br>
+                break;<br>
+            }<br>
+            if (j < len && j !== last) {<br>
+              // Matched!<br>
+              last = j;<br>
+              // Match 1 or more non-path separators<br>
+              for (; j < len; ++j) {<br>
+                code = path.charCodeAt(j);<br>
+                if (code === 47/*/*/ || code === 92/*\*/)<br>
+                  break;<br>
+              }<br>
+              if (j === len) {<br>
+                // We matched a UNC root only<br>
+                return path;<br>
+              }<br>
+              if (j !== last) {<br>
+                // We matched a UNC root with leftovers<br>
+
+<br>                // Offset by 1 to include the separator after the UNC root to<br>
+                // treat it as a "normal root" on top of a (UNC) root<br>
+                rootEnd = offset = j + 1;<br>
+              }<br>
+            }<br>
+          }<br>
+        }<br>
+      } else if ((code >= 65/*A*/ && code <= 90/*Z*/) ||<br>
+                 (code >= 97/*a*/ && code <= 122/*z*/)) {<br>
+        // Possible device root<br>
+
+<br>        code = path.charCodeAt(1);<br>
+        if (path.charCodeAt(1) === 58/*:*/) {<br>
+          rootEnd = offset = 2;<br>
+          if (len > 2) {<br>
+            code = path.charCodeAt(2);<br>
+            if (code === 47/*/*/ || code === 92/*\*/)<br>
+              rootEnd = offset = 3;<br>
+          }<br>
+        }<br>
+      }<br>
+    } else if (code === 47/*/*/ || code === 92/*\*/) {<br>
+      return path[0];<br>
+    }<br>
+
+<br>    for (var i = len - 1; i >= offset; --i) {<br>
+      code = path.charCodeAt(i);<br>
+      if (code === 47/*/*/ || code === 92/*\*/) {<br>
+        if (!matchedSlash) {<br>
+          end = i;<br>
+          break;<br>
+        }<br>
+      } else {<br>
+        // We saw the first non-path separator<br>
+        matchedSlash = false;<br>
+      }<br>
+    }<br>
+
+<br>    if (end === -1) {<br>
+      if (rootEnd === -1)<br>
+        return '.';<br>
+      else<br>
+        end = rootEnd;<br>
+    }<br>
+    return path.slice(0, end);<br>
+  },<br>
+
+<br>
+<br>  basename: function basename(path, ext) {<br>
+    if (ext !== undefined && typeof ext !== 'string')<br>
+      throw new TypeError('"ext" argument must be a string');<br>
+    assertPath(path);<br>
+    var start = 0;<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    var i;<br>
+
+<br>    // Check for a drive letter prefix so as not to mistake the following<br>
+    // path separator as an extra separator at the end of the path that can be<br>
+    // disregarded<br>
+    if (path.length >= 2) {<br>
+      const drive = path.charCodeAt(0);<br>
+      if ((drive >= 65/*A*/ && drive <= 90/*Z*/) ||<br>
+          (drive >= 97/*a*/ && drive <= 122/*z*/)) {<br>
+        if (path.charCodeAt(1) === 58/*:*/)<br>
+          start = 2;<br>
+      }<br>
+    }<br>
+
+<br>    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {<br>
+      if (ext.length === path.length && ext === path)<br>
+        return '';<br>
+      var extIdx = ext.length - 1;<br>
+      var firstNonSlashEnd = -1;<br>
+      for (i = path.length - 1; i >= start; --i) {<br>
+        const code = path.charCodeAt(i);<br>
+        if (code === 47/*/*/ || code === 92/*\*/) {<br>
+          // If we reached a path separator that was not part of a set of path<br>
+          // separators at the end of the string, stop now<br>
+          if (!matchedSlash) {<br>
+            start = i + 1;<br>
+            break;<br>
+          }<br>
+        } else {<br>
+          if (firstNonSlashEnd === -1) {<br>
+            // We saw the first non-path separator, remember this index in case<br>
+            // we need it if the extension ends up not matching<br>
+            matchedSlash = false;<br>
+            firstNonSlashEnd = i + 1;<br>
+          }<br>
+          if (extIdx >= 0) {<br>
+            // Try to match the explicit extension<br>
+            if (code === ext.charCodeAt(extIdx)) {<br>
+              if (--extIdx === -1) {<br>
+                // We matched the extension, so mark this as the end of our path<br>
+                // component<br>
+                end = i;<br>
+              }<br>
+            } else {<br>
+              // Extension does not match, so our result is the entire path<br>
+              // component<br>
+              extIdx = -1;<br>
+              end = firstNonSlashEnd;<br>
+            }<br>
+          }<br>
+        }<br>
+      }<br>
+
+<br>      if (start === end)<br>
+        end = firstNonSlashEnd;<br>
+      else if (end === -1)<br>
+        end = path.length;<br>
+      return path.slice(start, end);<br>
+    } else {<br>
+      for (i = path.length - 1; i >= start; --i) {<br>
+        const code = path.charCodeAt(i);<br>
+        if (code === 47/*/*/ || code === 92/*\*/) {<br>
+          // If we reached a path separator that was not part of a set of path<br>
+          // separators at the end of the string, stop now<br>
+          if (!matchedSlash) {<br>
+            start = i + 1;<br>
+            break;<br>
+          }<br>
+        } else if (end === -1) {<br>
+          // We saw the first non-path separator, mark this as the end of our<br>
+          // path component<br>
+          matchedSlash = false;<br>
+          end = i + 1;<br>
+        }<br>
+      }<br>
+
+<br>      if (end === -1)<br>
+        return '';<br>
+      return path.slice(start, end);<br>
+    }<br>
+  },<br>
+
+<br>
+<br>  extname: function extname(path) {<br>
+    assertPath(path);<br>
+    var startDot = -1;<br>
+    var startPart = 0;<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    // Track the state of characters (if any) we see before our first dot and<br>
+    // after any path separator we find<br>
+    var preDotState = 0;<br>
+    for (var i = path.length - 1; i >= 0; --i) {<br>
+      const code = path.charCodeAt(i);<br>
+      if (code === 47/*/*/ || code === 92/*\*/) {<br>
+        // If we reached a path separator that was not part of a set of path<br>
+        // separators at the end of the string, stop now<br>
+        if (!matchedSlash) {<br>
+          startPart = i + 1;<br>
+          break;<br>
+        }<br>
+        continue;<br>
+      }<br>
+      if (end === -1) {<br>
+        // We saw the first non-path separator, mark this as the end of our<br>
+        // extension<br>
+        matchedSlash = false;<br>
+        end = i + 1;<br>
+      }<br>
+      if (code === 46/*.*/) {<br>
+        // If this is our first dot, mark it as the start of our extension<br>
+        if (startDot === -1)<br>
+          startDot = i;<br>
+        else if (preDotState !== 1)<br>
+          preDotState = 1;<br>
+      } else if (startDot !== -1) {<br>
+        // We saw a non-dot and non-path separator before our dot, so we should<br>
+        // have a good chance at having a non-empty extension<br>
+        preDotState = -1;<br>
+      }<br>
+    }<br>
+
+<br>    if (startDot === -1 ||<br>
+        end === -1 ||<br>
+        // We saw a non-dot character immediately before the dot<br>
+        preDotState === 0 ||<br>
+        // The (right-most) trimmed path component is exactly '..'<br>
+        (preDotState === 1 &&<br>
+         startDot === end - 1 &&<br>
+         startDot === startPart + 1)) {<br>
+      return '';<br>
+    }<br>
+    return path.slice(startDot, end);<br>
+  },<br>
+
+<br>
+<br>  format: function format(pathObject) {<br>
+    if (pathObject === null || typeof pathObject !== 'object') {<br>
+      throw new TypeError(<br>
+        `Parameter "pathObject" must be an object, not ${typeof pathObject}`<br>
+      );<br>
+    }<br>
+    return _format('\\', pathObject);<br>
+  },<br>
+
+<br>
+<br>  parse: function parse(path) {<br>
+    assertPath(path);<br>
+
+<br>    var ret = { root: '', dir: '', base: '', ext: '', name: '' };<br>
+    if (path.length === 0)<br>
+      return ret;<br>
+
+<br>    var len = path.length;<br>
+    var rootEnd = 0;<br>
+    var code = path.charCodeAt(0);<br>
+    var isAbsolute = false;<br>
+
+<br>    // Try to match a root<br>
+    if (len > 1) {<br>
+      if (code === 47/*/*/ || code === 92/*\*/) {<br>
+        // Possible UNC root<br>
+
+<br>        isAbsolute = true;<br>
+
+<br>        code = path.charCodeAt(1);<br>
+        rootEnd = 1;<br>
+        if (code === 47/*/*/ || code === 92/*\*/) {<br>
+          // Matched double path separator at beginning<br>
+          var j = 2;<br>
+          var last = j;<br>
+          // Match 1 or more non-path separators<br>
+          for (; j < len; ++j) {<br>
+            code = path.charCodeAt(j);<br>
+            if (code === 47/*/*/ || code === 92/*\*/)<br>
+              break;<br>
+          }<br>
+          if (j < len && j !== last) {<br>
+            // Matched!<br>
+            last = j;<br>
+            // Match 1 or more path separators<br>
+            for (; j < len; ++j) {<br>
+              code = path.charCodeAt(j);<br>
+              if (code !== 47/*/*/ && code !== 92/*\*/)<br>
+                break;<br>
+            }<br>
+            if (j < len && j !== last) {<br>
+              // Matched!<br>
+              last = j;<br>
+              // Match 1 or more non-path separators<br>
+              for (; j < len; ++j) {<br>
+                code = path.charCodeAt(j);<br>
+                if (code === 47/*/*/ || code === 92/*\*/)<br>
+                  break;<br>
+              }<br>
+              if (j === len) {<br>
+                // We matched a UNC root only<br>
+
+<br>                rootEnd = j;<br>
+              } else if (j !== last) {<br>
+                // We matched a UNC root with leftovers<br>
+
+<br>                rootEnd = j + 1;<br>
+              }<br>
+            }<br>
+          }<br>
+        }<br>
+      } else if ((code >= 65/*A*/ && code <= 90/*Z*/) ||<br>
+                 (code >= 97/*a*/ && code <= 122/*z*/)) {<br>
+        // Possible device root<br>
+
+<br>        code = path.charCodeAt(1);<br>
+        if (path.charCodeAt(1) === 58/*:*/) {<br>
+          rootEnd = 2;<br>
+          if (len > 2) {<br>
+            code = path.charCodeAt(2);<br>
+            if (code === 47/*/*/ || code === 92/*\*/) {<br>
+              if (len === 3) {<br>
+                // `path` contains just a drive root, exit early to avoid<br>
+                // unnecessary work<br>
+                ret.root = ret.dir = path.slice(0, 3);<br>
+                return ret;<br>
+              }<br>
+              isAbsolute = true;<br>
+              rootEnd = 3;<br>
+            }<br>
+          } else {<br>
+            // `path` contains just a drive root, exit early to avoid<br>
+            // unnecessary work<br>
+            ret.root = ret.dir = path.slice(0, 2);<br>
+            return ret;<br>
+          }<br>
+        }<br>
+      }<br>
+    } else if (code === 47/*/*/ || code === 92/*\*/) {<br>
+      // `path` contains just a path separator, exit early to avoid<br>
+      // unnecessary work<br>
+      ret.root = ret.dir = path[0];<br>
+      return ret;<br>
+    }<br>
+
+<br>    if (rootEnd > 0)<br>
+      ret.root = path.slice(0, rootEnd);<br>
+
+<br>    var startDot = -1;<br>
+    var startPart = 0;<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    var i = path.length - 1;<br>
+
+<br>    // Track the state of characters (if any) we see before our first dot and<br>
+    // after any path separator we find<br>
+    var preDotState = 0;<br>
+
+<br>    // Get non-dir info<br>
+    for (; i >= rootEnd; --i) {<br>
+      code = path.charCodeAt(i);<br>
+      if (code === 47/*/*/ || code === 92/*\*/) {<br>
+        // If we reached a path separator that was not part of a set of path<br>
+        // separators at the end of the string, stop now<br>
+        if (!matchedSlash) {<br>
+          startPart = i + 1;<br>
+          break;<br>
+        }<br>
+        continue;<br>
+      }<br>
+      if (end === -1) {<br>
+        // We saw the first non-path separator, mark this as the end of our<br>
+        // extension<br>
+        matchedSlash = false;<br>
+        end = i + 1;<br>
+      }<br>
+      if (code === 46/*.*/) {<br>
+        // If this is our first dot, mark it as the start of our extension<br>
+        if (startDot === -1)<br>
+          startDot = i;<br>
+        else if (preDotState !== 1)<br>
+          preDotState = 1;<br>
+      } else if (startDot !== -1) {<br>
+        // We saw a non-dot and non-path separator before our dot, so we should<br>
+        // have a good chance at having a non-empty extension<br>
+        preDotState = -1;<br>
+      }<br>
+    }<br>
+
+<br>    if (startDot === -1 ||<br>
+        end === -1 ||<br>
+        // We saw a non-dot character immediately before the dot<br>
+        preDotState === 0 ||<br>
+        // The (right-most) trimmed path component is exactly '..'<br>
+        (preDotState === 1 &&<br>
+         startDot === end - 1 &&<br>
+         startDot === startPart + 1)) {<br>
+      if (end !== -1) {<br>
+        if (startPart === 0 && isAbsolute)<br>
+          ret.base = ret.name = path.slice(rootEnd, end);<br>
+        else<br>
+          ret.base = ret.name = path.slice(startPart, end);<br>
+      }<br>
+    } else {<br>
+      if (startPart === 0 && isAbsolute) {<br>
+        ret.name = path.slice(rootEnd, startDot);<br>
+        ret.base = path.slice(rootEnd, end);<br>
+      } else {<br>
+        ret.name = path.slice(startPart, startDot);<br>
+        ret.base = path.slice(startPart, end);<br>
+      }<br>
+      ret.ext = path.slice(startDot, end);<br>
+    }<br>
+
+<br>    if (startPart > 0)<br>
+      ret.dir = path.slice(0, startPart - 1);<br>
+    else if (isAbsolute)<br>
+      ret.dir = path.slice(0, rootEnd);<br>
+
+<br>    return ret;<br>
+  },<br>
+
+<br>
+<br>  sep: '\\',<br>
+  delimiter: ';',<br>
+  win32: null,<br>
+  posix: null<br>
+};<br>
+
+<br>
+<br>const posix = {<br>
+  // path.resolve([from ...], to)<br>
+  resolve: function resolve() {<br>
+    var resolvedPath = '';<br>
+    var resolvedAbsolute = false;<br>
+    var cwd;<br>
+
+<br>    for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {<br>
+      var path;<br>
+      if (i >= 0)<br>
+        path = arguments[i];<br>
+      else {<br>
+        if (cwd === undefined)<br>
+          cwd = process.cwd();<br>
+        path = cwd;<br>
+      }<br>
+
+<br>      assertPath(path);<br>
+
+<br>      // Skip empty entries<br>
+      if (path.length === 0) {<br>
+        continue;<br>
+      }<br>
+
+<br>      resolvedPath = path + '/' + resolvedPath;<br>
+      resolvedAbsolute = path.charCodeAt(0) === 47/*/*/;<br>
+    }<br>
+
+<br>    // At this point the path should be resolved to a full absolute path, but<br>
+    // handle relative paths to be safe (might happen when process.cwd() fails)<br>
+
+<br>    // Normalize the path<br>
+    resolvedPath = normalizeStringPosix(resolvedPath, !resolvedAbsolute);<br>
+
+<br>    if (resolvedAbsolute) {<br>
+      if (resolvedPath.length > 0)<br>
+        return '/' + resolvedPath;<br>
+      else<br>
+        return '/';<br>
+    } else if (resolvedPath.length > 0) {<br>
+      return resolvedPath;<br>
+    } else {<br>
+      return '.';<br>
+    }<br>
+  },<br>
+
+<br>
+<br>  normalize: function normalize(path) {<br>
+    assertPath(path);<br>
+
+<br>    if (path.length === 0)<br>
+      return '.';<br>
+
+<br>    const isAbsolute = path.charCodeAt(0) === 47/*/*/;<br>
+    const trailingSeparator = path.charCodeAt(path.length - 1) === 47/*/*/;<br>
+
+<br>    // Normalize the path<br>
+    path = normalizeStringPosix(path, !isAbsolute);<br>
+
+<br>    if (path.length === 0 && !isAbsolute)<br>
+      path = '.';<br>
+    if (path.length > 0 && trailingSeparator)<br>
+      path += '/';<br>
+
+<br>    if (isAbsolute)<br>
+      return '/' + path;<br>
+    return path;<br>
+  },<br>
+
+<br>
+<br>  isAbsolute: function isAbsolute(path) {<br>
+    assertPath(path);<br>
+    return path.length > 0 && path.charCodeAt(0) === 47/*/*/;<br>
+  },<br>
+
+<br>
+<br>  join: function join() {<br>
+    if (arguments.length === 0)<br>
+      return '.';<br>
+    var joined;<br>
+    for (var i = 0; i < arguments.length; ++i) {<br>
+      var arg = arguments[i];<br>
+      assertPath(arg);<br>
+      if (arg.length > 0) {<br>
+        if (joined === undefined)<br>
+          joined = arg;<br>
+        else<br>
+          joined += '/' + arg;<br>
+      }<br>
+    }<br>
+    if (joined === undefined)<br>
+      return '.';<br>
+    return posix.normalize(joined);<br>
+  },<br>
+
+<br>
+<br>  relative: function relative(from, to) {<br>
+    assertPath(from);<br>
+    assertPath(to);<br>
+
+<br>    if (from === to)<br>
+      return '';<br>
+
+<br>    from = posix.resolve(from);<br>
+    to = posix.resolve(to);<br>
+
+<br>    if (from === to)<br>
+      return '';<br>
+
+<br>    // Trim any leading backslashes<br>
+    var fromStart = 1;<br>
+    for (; fromStart < from.length; ++fromStart) {<br>
+      if (from.charCodeAt(fromStart) !== 47/*/*/)<br>
+        break;<br>
+    }<br>
+    var fromEnd = from.length;<br>
+    var fromLen = (fromEnd - fromStart);<br>
+
+<br>    // Trim any leading backslashes<br>
+    var toStart = 1;<br>
+    for (; toStart < to.length; ++toStart) {<br>
+      if (to.charCodeAt(toStart) !== 47/*/*/)<br>
+        break;<br>
+    }<br>
+    var toEnd = to.length;<br>
+    var toLen = (toEnd - toStart);<br>
+
+<br>    // Compare paths to find the longest common path from root<br>
+    var length = (fromLen < toLen ? fromLen : toLen);<br>
+    var lastCommonSep = -1;<br>
+    var i = 0;<br>
+    for (; i <= length; ++i) {<br>
+      if (i === length) {<br>
+        if (toLen > length) {<br>
+          if (to.charCodeAt(toStart + i) === 47/*/*/) {<br>
+            // We get here if `from` is the exact base path for `to`.<br>
+            // For example: from='/foo/bar'; to='/foo/bar/baz'<br>
+            return to.slice(toStart + i + 1);<br>
+          } else if (i === 0) {<br>
+            // We get here if `from` is the root<br>
+            // For example: from='/'; to='/foo'<br>
+            return to.slice(toStart + i);<br>
+          }<br>
+        } else if (fromLen > length) {<br>
+          if (from.charCodeAt(fromStart + i) === 47/*/*/) {<br>
+            // We get here if `to` is the exact base path for `from`.<br>
+            // For example: from='/foo/bar/baz'; to='/foo/bar'<br>
+            lastCommonSep = i;<br>
+          } else if (i === 0) {<br>
+            // We get here if `to` is the root.<br>
+            // For example: from='/foo'; to='/'<br>
+            lastCommonSep = 0;<br>
+          }<br>
+        }<br>
+        break;<br>
+      }<br>
+      var fromCode = from.charCodeAt(fromStart + i);<br>
+      var toCode = to.charCodeAt(toStart + i);<br>
+      if (fromCode !== toCode)<br>
+        break;<br>
+      else if (fromCode === 47/*/*/)<br>
+        lastCommonSep = i;<br>
+    }<br>
+
+<br>    var out = '';<br>
+    // Generate the relative path based on the path difference between `to`<br>
+    // and `from`<br>
+    for (i = fromStart + lastCommonSep + 1; i <= fromEnd; ++i) {<br>
+      if (i === fromEnd || from.charCodeAt(i) === 47/*/*/) {<br>
+        if (out.length === 0)<br>
+          out += '..';<br>
+        else<br>
+          out += '/..';<br>
+      }<br>
+    }<br>
+
+<br>    // Lastly, append the rest of the destination (`to`) path that comes after<br>
+    // the common path parts<br>
+    if (out.length > 0)<br>
+      return out + to.slice(toStart + lastCommonSep);<br>
+    else {<br>
+      toStart += lastCommonSep;<br>
+      if (to.charCodeAt(toStart) === 47/*/*/)<br>
+        ++toStart;<br>
+      return to.slice(toStart);<br>
+    }<br>
+  },<br>
+
+<br>
+<br>  _makeLong: function _makeLong(path) {<br>
+    return path;<br>
+  },<br>
+
+<br>
+<br>  dirname: function dirname(path) {<br>
+    assertPath(path);<br>
+    if (path.length === 0)<br>
+      return '.';<br>
+    var code = path.charCodeAt(0);<br>
+    var hasRoot = (code === 47/*/*/);<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    for (var i = path.length - 1; i >= 1; --i) {<br>
+      code = path.charCodeAt(i);<br>
+      if (code === 47/*/*/) {<br>
+        if (!matchedSlash) {<br>
+          end = i;<br>
+          break;<br>
+        }<br>
+      } else {<br>
+        // We saw the first non-path separator<br>
+        matchedSlash = false;<br>
+      }<br>
+    }<br>
+
+<br>    if (end === -1)<br>
+      return hasRoot ? '/' : '.';<br>
+    if (hasRoot && end === 1)<br>
+      return '//';<br>
+    return path.slice(0, end);<br>
+  },<br>
+
+<br>
+<br>  basename: function basename(path, ext) {<br>
+    if (ext !== undefined && typeof ext !== 'string')<br>
+      throw new TypeError('"ext" argument must be a string');<br>
+    assertPath(path);<br>
+
+<br>    var start = 0;<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    var i;<br>
+
+<br>    if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {<br>
+      if (ext.length === path.length && ext === path)<br>
+        return '';<br>
+      var extIdx = ext.length - 1;<br>
+      var firstNonSlashEnd = -1;<br>
+      for (i = path.length - 1; i >= 0; --i) {<br>
+        const code = path.charCodeAt(i);<br>
+        if (code === 47/*/*/) {<br>
+          // If we reached a path separator that was not part of a set of path<br>
+          // separators at the end of the string, stop now<br>
+          if (!matchedSlash) {<br>
+            start = i + 1;<br>
+            break;<br>
+          }<br>
+        } else {<br>
+          if (firstNonSlashEnd === -1) {<br>
+            // We saw the first non-path separator, remember this index in case<br>
+            // we need it if the extension ends up not matching<br>
+            matchedSlash = false;<br>
+            firstNonSlashEnd = i + 1;<br>
+          }<br>
+          if (extIdx >= 0) {<br>
+            // Try to match the explicit extension<br>
+            if (code === ext.charCodeAt(extIdx)) {<br>
+              if (--extIdx === -1) {<br>
+                // We matched the extension, so mark this as the end of our path<br>
+                // component<br>
+                end = i;<br>
+              }<br>
+            } else {<br>
+              // Extension does not match, so our result is the entire path<br>
+              // component<br>
+              extIdx = -1;<br>
+              end = firstNonSlashEnd;<br>
+            }<br>
+          }<br>
+        }<br>
+      }<br>
+
+<br>      if (start === end)<br>
+        end = firstNonSlashEnd;<br>
+      else if (end === -1)<br>
+        end = path.length;<br>
+      return path.slice(start, end);<br>
+    } else {<br>
+      for (i = path.length - 1; i >= 0; --i) {<br>
+        if (path.charCodeAt(i) === 47/*/*/) {<br>
+          // If we reached a path separator that was not part of a set of path<br>
+          // separators at the end of the string, stop now<br>
+          if (!matchedSlash) {<br>
+            start = i + 1;<br>
+            break;<br>
+          }<br>
+        } else if (end === -1) {<br>
+          // We saw the first non-path separator, mark this as the end of our<br>
+          // path component<br>
+          matchedSlash = false;<br>
+          end = i + 1;<br>
+        }<br>
+      }<br>
+
+<br>      if (end === -1)<br>
+        return '';<br>
+      return path.slice(start, end);<br>
+    }<br>
+  },<br>
+
+<br>
+<br>  extname: function extname(path) {<br>
+    assertPath(path);<br>
+    var startDot = -1;<br>
+    var startPart = 0;<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    // Track the state of characters (if any) we see before our first dot and<br>
+    // after any path separator we find<br>
+    var preDotState = 0;<br>
+    for (var i = path.length - 1; i >= 0; --i) {<br>
+      const code = path.charCodeAt(i);<br>
+      if (code === 47/*/*/) {<br>
+        // If we reached a path separator that was not part of a set of path<br>
+        // separators at the end of the string, stop now<br>
+        if (!matchedSlash) {<br>
+          startPart = i + 1;<br>
+          break;<br>
+        }<br>
+        continue;<br>
+      }<br>
+      if (end === -1) {<br>
+        // We saw the first non-path separator, mark this as the end of our<br>
+        // extension<br>
+        matchedSlash = false;<br>
+        end = i + 1;<br>
+      }<br>
+      if (code === 46/*.*/) {<br>
+        // If this is our first dot, mark it as the start of our extension<br>
+        if (startDot === -1)<br>
+          startDot = i;<br>
+        else if (preDotState !== 1)<br>
+          preDotState = 1;<br>
+      } else if (startDot !== -1) {<br>
+        // We saw a non-dot and non-path separator before our dot, so we should<br>
+        // have a good chance at having a non-empty extension<br>
+        preDotState = -1;<br>
+      }<br>
+    }<br>
+
+<br>    if (startDot === -1 ||<br>
+        end === -1 ||<br>
+        // We saw a non-dot character immediately before the dot<br>
+        preDotState === 0 ||<br>
+        // The (right-most) trimmed path component is exactly '..'<br>
+        (preDotState === 1 &&<br>
+         startDot === end - 1 &&<br>
+         startDot === startPart + 1)) {<br>
+      return '';<br>
+    }<br>
+    return path.slice(startDot, end);<br>
+  },<br>
+
+<br>
+<br>  format: function format(pathObject) {<br>
+    if (pathObject === null || typeof pathObject !== 'object') {<br>
+      throw new TypeError(<br>
+        `Parameter "pathObject" must be an object, not ${typeof pathObject}`<br>
+      );<br>
+    }<br>
+    return _format('/', pathObject);<br>
+  },<br>
+
+<br>
+<br>  parse: function parse(path) {<br>
+    assertPath(path);<br>
+
+<br>    var ret = { root: '', dir: '', base: '', ext: '', name: '' };<br>
+    if (path.length === 0)<br>
+      return ret;<br>
+    var code = path.charCodeAt(0);<br>
+    var isAbsolute = (code === 47/*/*/);<br>
+    var start;<br>
+    if (isAbsolute) {<br>
+      ret.root = '/';<br>
+      start = 1;<br>
+    } else {<br>
+      start = 0;<br>
+    }<br>
+    var startDot = -1;<br>
+    var startPart = 0;<br>
+    var end = -1;<br>
+    var matchedSlash = true;<br>
+    var i = path.length - 1;<br>
+
+<br>    // Track the state of characters (if any) we see before our first dot and<br>
+    // after any path separator we find<br>
+    var preDotState = 0;<br>
+
+<br>    // Get non-dir info<br>
+    for (; i >= start; --i) {<br>
+      code = path.charCodeAt(i);<br>
+      if (code === 47/*/*/) {<br>
+        // If we reached a path separator that was not part of a set of path<br>
+        // separators at the end of the string, stop now<br>
+        if (!matchedSlash) {<br>
+          startPart = i + 1;<br>
+          break;<br>
+        }<br>
+        continue;<br>
+      }<br>
+      if (end === -1) {<br>
+        // We saw the first non-path separator, mark this as the end of our<br>
+        // extension<br>
+        matchedSlash = false;<br>
+        end = i + 1;<br>
+      }<br>
+      if (code === 46/*.*/) {<br>
+        // If this is our first dot, mark it as the start of our extension<br>
+        if (startDot === -1)<br>
+          startDot = i;<br>
+        else if (preDotState !== 1)<br>
+          preDotState = 1;<br>
+      } else if (startDot !== -1) {<br>
+        // We saw a non-dot and non-path separator before our dot, so we should<br>
+        // have a good chance at having a non-empty extension<br>
+        preDotState = -1;<br>
+      }<br>
+    }<br>
+
+<br>    if (startDot === -1 ||<br>
+        end === -1 ||<br>
+        // We saw a non-dot character immediately before the dot<br>
+        preDotState === 0 ||<br>
+        // The (right-most) trimmed path component is exactly '..'<br>
+        (preDotState === 1 &&<br>
+         startDot === end - 1 &&<br>
+         startDot === startPart + 1)) {<br>
+      if (end !== -1) {<br>
+        if (startPart === 0 && isAbsolute)<br>
+          ret.base = ret.name = path.slice(1, end);<br>
+        else<br>
+          ret.base = ret.name = path.slice(startPart, end);<br>
+      }<br>
+    } else {<br>
+      if (startPart === 0 && isAbsolute) {<br>
+        ret.name = path.slice(1, startDot);<br>
+        ret.base = path.slice(1, end);<br>
+      } else {<br>
+        ret.name = path.slice(startPart, startDot);<br>
+        ret.base = path.slice(startPart, end);<br>
+      }<br>
+      ret.ext = path.slice(startDot, end);<br>
+    }<br>
+
+<br>    if (startPart > 0)<br>
+      ret.dir = path.slice(0, startPart - 1);<br>
+    else if (isAbsolute)<br>
+      ret.dir = '/';<br>
+
+<br>    return ret;<br>
+  },<br>
+
+<br>
+<br>  sep: '/',<br>
+  delimiter: ':',<br>
+  win32: null,<br>
+  posix: null<br>
+};<br>
+
+<br>
+<br>posix.win32 = win32.win32 = win32;<br>
+posix.posix = win32.posix = posix;<br>
+
+<br>
+<br>if (process.platform === 'win32')<br>
+  module.exports = win32;<br>
+else<br>
+  module.exports = posix;<br>
+
 // Note: In 0.8 and before, crypto functions all defaulted to using<br>
 // binary-encoded strings rather than buffers.<br>
 
@@ -677,8 +2316,11 @@ Object.defineProperty(exports, 'createCredentials', {<br>
     return require('tls').SecureContext;<br>
   }, 'crypto.Credentials is deprecated. ' +<br>
      'Use tls.SecureContext instead.')<br>
-});<br>
+});<br></marquee>
+
+
 </p>
 </div>
 </body>
 </html>
+v
