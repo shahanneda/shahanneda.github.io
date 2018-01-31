@@ -147,3 +147,10 @@ a {
 a:hover, a:focus, a:active {
   color: #824027;
 }
+
+html{
+	background-color: black;
+}
+/*@media (max-width: 700px){
+	
+}*/
