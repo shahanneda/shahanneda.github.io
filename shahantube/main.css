@@ -92,6 +92,7 @@ body{
 		height: 10vh;
     	font-size: 1.9rem;
     	margin:0px;
+    	padding-left: 5px;
 	}
 }
 @media(max-width: 450px){
