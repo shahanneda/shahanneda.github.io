@@ -54,7 +54,7 @@ function showResults(results) {
         var thumbnail = value.snippet.thumbnails.default.url;
         html += '<div class="videoListing" data-id="'+ id +'">'
         html += '<p class="videoTitle">' + title + '</p>';
-        html += '<img src="' + thumbnail + '">';
+        html += '<img class="videoImage" src="' + thumbnail + '">';
         html +=	'</div>'
     }); 
     
