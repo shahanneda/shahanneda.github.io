@@ -1,0 +1,52 @@
+*{
+	margin:0;
+	padding: 0;
+}
+
+.header{
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-gap: 1rem;
+	height: : 10vh;
+	background-color: gray;
+	padding: 1rem;
+}
+#search-box{
+	background:none;
+	border: none;
+	border-bottom: 0.1rem black solid;
+}
+#search-box,
+#search-box::-webkit-input-placeholder {
+    font-size: 1.3rem;
+    color:white;
+    
+}
+
+body{
+	background-color: #dedede;
+}
+#ytplayer{
+	width: 100%;
+	height: 50vh;
+}
+#search-results{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 10px
+}
+.videoListing{
+	border: 1px gray solid;
+	padding: 10px;
+	display: flex;
+	flex-direction:column;
+	justify-content: space-between
+
+}
+
+.videoListing > p{
+	margin-bottom: 10px;
+}
+.videoTitle{
+	font-size: 1rem;
+}
