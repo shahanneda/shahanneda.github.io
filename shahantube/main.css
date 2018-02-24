@@ -74,5 +74,28 @@ body{
 	#search-results{
 		grid-template-columns: repeat(2,1fr);
 
+
+	}
+
+	.header{
+		display: block;
+		padding: 2px;
+
+	}
+	.header >h1{
+		padding-left: 10px;
+	}
+	#search-box,
+	#search-box::-webkit-input-placeholder{
+		width: 100%;
+		margin:10px;
+		height: 10vh;
+    	font-size: 1.9rem;
+    	margin:0px;
 	}
 }
+@media(max-width: 450px){
+	#search-results{
+		grid-template-columns: repeat(1,1fr);
+	}
+}	
