@@ -3,7 +3,7 @@ import React from "react";
 const Weather = (props) =>{
   return (
 
-    <div className="card-panel red z-depth-1" style={{height: "50vh"}}>
+    <div className="card-panel red z-depth-1" style={{height: "75vh"}}>
       {props.city&& props.country && <div>f</div>}
       {props.city&& props.country && <p className="flow-text white-text card-panel blue z-depth-4 lighten-3">Location: {props.city}, {props.country}</p>}
       {props.temperature && <p className="flow-text white-text card-panel orange z-depth-4 lighten-3">Temperature: {props.temperature}</p>}
