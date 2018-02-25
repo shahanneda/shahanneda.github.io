@@ -5,23 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ShahanTube</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="main.css">
+  <!--<link rel="stylesheet" href="main.css">-->
   <script src="main.js"></script>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
 
 </head>
 <body>
-  <div class="header">
-    <h1 class="pageTitle">ShahanTube</h1>
-  
-  <input type="text" id="search-box" placeholder="Search">
-
+  <div class="navbar-fixed">
+    <nav>
+       <div class="nav-wrapper">
+           <!-- <a href="#" class="brand-logo left">Shahan Tube</a> -->
+           <form>
+             <div class="input-field ">
+               <input id="search" type="search" required>
+               <label class="label-icon " for="search"><i class="material-icons">search</i></label>
+               <i class="material-icons">close</i>
+             </div>
+          </form>
+       </div>
+     </nav>
   </div>
-  
+  <div class="container">
 
-  <iframe id="ytplayer" type="text/html" 
-  src="https://www.youtube.com/embed/a61edozA-0A?&showinfo=0&modestbranding=1&loop=1&autoplay=1&playlist=a61edozA-0A"
-  frameborder="0" allowfullscreen></iframe>
-  <div id="search-results"></div>
+
+<!--
+    <input type="text" id="search-box" placeholder="Search"> -->
+
+
+     <div class="video-container">
+      <iframe id="ytplayer" type="text/html"
+      src="https://www.youtube.com/embed/a61edozA-0A?&showinfo=0&modestbranding=1&loop=1&autoplay=1&playlist=a61edozA-0A"
+      frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div id="search-results"></div>
+  </div>
 
 </body>
 </html>
