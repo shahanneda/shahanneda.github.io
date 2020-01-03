@@ -31,15 +31,15 @@ $cardBackground: #0A2463;
 
 }
 
-/* Landscape phones and portrait tablets */
+/* Landscape phones and posrtrait tablets */
 @media (max-width: 767px) {
-  body{font-size: 12px;}
+  body{font-size: 14px;}
 
 }
 
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
-  body{font-size: 14px;}
+  body{font-size: 8px;}
 }
 .mainName{
   color: $teal-blue;
@@ -68,4 +68,7 @@ body{
 .card{
   background-color: #59c9a5;
   color:#ecfff9;
+}
+.underText{
+  font-size: 3em;
 }

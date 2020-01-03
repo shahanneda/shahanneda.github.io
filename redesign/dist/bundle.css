@@ -1,15 +1,15 @@
 /* Landscape tablets and medium desktops */
 /* Portrait tablets and small desktops */
-/* Landscape phones and portrait tablets */
+/* Landscape phones and posrtrait tablets */
 @media (max-width: 767px) {
   body {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 /* Portrait phones and smaller */
 @media (max-width: 480px) {
   body {
-    font-size: 14px;
+    font-size: 8px;
   }
 }
 .mainName {
@@ -41,6 +41,10 @@ body {
 .card {
   background-color: #59c9a5;
   color: #ecfff9;
+}
+
+.underText {
+  font-size: 3em;
 }
 
 /*# sourceMappingURL=bundle.css.map */
