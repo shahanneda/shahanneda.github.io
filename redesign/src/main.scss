@@ -1,6 +1,34 @@
 $body-color:blue ;
+$teal-blue: rgb(152, 176, 255);
+$background: #94B0DA;
+$background2:rgb(88, 123, 168);
+$duke: #090C9E;
+$cobalt: #090C9B;
+$char: #2E4057;
+$lastName:rgb(109, 143, 255); 
+$dahandehLastName: rgb(88, 125, 247);
 
-body {
-  color: $body-color;
-  // background-color: $body-color;
+.mainName{
+  color: $teal-blue;
+  font-size: 5em;
+}
+.lastName{
+  color: $lastName;
+}
+body{
+  background-color: $background;
+}
+.nameRow{
+  // margin-top: 50%;
+  // padding: 10%;jj
+  background-color: $char;
+}
+
+.sectionTitle{
+  color:$duke;
+  background-color: $background2;
+
+}
+.dahandeh{
+ color:$dahandehLastName; 
 }

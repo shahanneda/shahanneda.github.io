@@ -1,5 +1,27 @@
+.mainName {
+  color: #98b0ff;
+  font-size: 5em;
+}
+
+.lastName {
+  color: #6d8fff;
+}
+
 body {
-  color: blue;
+  background-color: #94B0DA;
+}
+
+.nameRow {
+  background-color: #2E4057;
+}
+
+.sectionTitle {
+  color: #090C9E;
+  background-color: #587ba8;
+}
+
+.dahandeh {
+  color: #587df7;
 }
 
 /*# sourceMappingURL=bundle.css.map */
