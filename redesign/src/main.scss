@@ -7,7 +7,40 @@ $cobalt: #090C9B;
 $char: #2E4057;
 $lastName:rgb(109, 143, 255); 
 $dahandehLastName: rgb(88, 125, 247);
-$cardBackground: #59C9A5;
+$cardBackground: #0A2463;
+
+// @media (max-width: @screen-xs) {
+//   body{font-size: 10px;}
+// }
+
+// @media (max-width: @screen-sm) {
+  
+// }
+// /* Large desktops and laptops */
+// @media (min-width: 1200px) {
+
+// }
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  body{font-size: 12px;}
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+  body{font-size: 14px;}
+}
 .mainName{
   color: $teal-blue;
   font-size: 5em;
@@ -33,5 +66,6 @@ body{
  color:$dahandehLastName; 
 }
 .card{
-  background-color: #59C9A5;
+  background-color: #59c9a5;
+  color:#ecfff9;
 }
