@@ -2,12 +2,12 @@ $body-color:blue ;
 $teal-blue: rgb(152, 176, 255);
 $background: #94B0DA;
 $background2:rgb(88, 123, 168);
-$duke: #090C9E;
+$duke: rgb(138, 185, 218);
 $cobalt: #090C9B;
 $char: #2E4057;
 $lastName:rgb(109, 143, 255); 
 $dahandehLastName: rgb(88, 125, 247);
-
+$cardBackground: #59C9A5;
 .mainName{
   color: $teal-blue;
   font-size: 5em;
@@ -31,4 +31,7 @@ body{
 }
 .dahandeh{
  color:$dahandehLastName; 
+}
+.card{
+  background-color: #59C9A5;
 }

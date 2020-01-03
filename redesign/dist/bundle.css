@@ -16,12 +16,16 @@ body {
 }
 
 .sectionTitle {
-  color: #090C9E;
+  color: #8ab9da;
   background-color: #587ba8;
 }
 
 .dahandeh {
   color: #587df7;
+}
+
+.card {
+  background-color: #59C9A5;
 }
 
 /*# sourceMappingURL=bundle.css.map */
