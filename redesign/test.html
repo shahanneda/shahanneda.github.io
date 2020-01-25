@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="t"></canvas>
+    <script>
+
+        let t = document.getElementById("t");
+        let ctx = t.getContext("2d");
+
+        ctx.translate(0, t.height);
+        ctx.scale(1, -1);
+
+        var startinA = new Point(0, 0);
+        var startinB = new Point(10, 0)
+        var startinC = new Point(0, 5);
+        function serpin(A, B, C, layer) {
+            ctx.beginPath();
+            ctx.moveTo(A.x, A.y);
+            ctx.lineTo(B.x, B.y);
+
+            ctx.moveTo(B.x, B.y);
+            ctx.lineTo(C.x, C.y);
+
+
+            ctx.stroke();
+        }
+
+        function Point(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        serpin(startinA, startinB, startinC, 0);
+
+    </script>
+</body>
+
+</html>
