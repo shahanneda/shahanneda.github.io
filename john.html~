@@ -1,5 +1,5 @@
 <script>
-    window.location.hre; = "https://shahan.ca/JohnTheLobster/release/";
+    window.location.href = "https://shahan.ca/JohnTheLobster/release/";
 </script>
 
 Redirecting
