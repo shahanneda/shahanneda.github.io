@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/cyborg/bootstrap.min.css" rel="stylesheet" integrity="sha384-l7xaoY0cJM4h9xh1RfazbgJVUZvdtyLWPueWNtLAphf/UbBgOVzqbOTogxPwYLHM" crossorigin="anonymous"> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js" > </script>
+
+
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-rCA2D+D9QXuP2TomtQwd+uP50EHjpafN+wruul0sXZzX/Da7Txn4tB9aLMZV4DZm" crossorigin="anonymous">
+
+    <style>
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+ .typed-cursor {
+   opacity: 0;
+   /*animation: blink .7s infinite;*/
+ }
+
+ @keyframes blink {
+   0% {
+     opacity: 1;
+   }
+   50% {
+     opacity: 0;
+   }
+   100% {
+     opacity: 1;
+   }
+ }
+
+
+
+ .balloon {
+   display:inline-block;
+   width:120px;
+   height:145px;
+   background:hsl(215,50%,65%);
+   border-radius:80%;
+   position:relative;
+   box-shadow:inset -10px -10px 0 rgba(0,0,0,0.07);
+   margin:20px 30px;
+   transition:transform 0.5s ease;
+   z-index:10;
+   animation:balloons 4s ease-in-out infinite;
+   transform-origin:bottom center;
+ }
+
+ @keyframes balloons {
+   0%,100%{ transform:translateY(0) rotate(-4deg); }
+   50%{ transform:translateY(-25px) rotate(4deg); }
+ }
+
+
+ .balloon:before {
+   content:"▲";
+   font-size:20px;
+   color:hsl(215,30%,50%);
+   display:block;
+   text-align:center;
+   width:100%;
+   position:absolute;
+   bottom:-12px;
+   z-index:-100;
+ }
+
+ .balloon:after {
+   display:inline-block; top:153px;
+   position:absolute;
+   height:250px;
+   width:1px;
+   margin:0 auto;
+   content:"";
+   background:rgba(0,0,0,0.2); 
+ }
+
+ .balloon:nth-child(2){ background:hsl(245,40%,65%); animation-duration:3.5s; }
+ .balloon:nth-child(2):before { color:hsl(245,40%,65%);  }
+
+ .balloon:nth-child(3){ background:hsl(139,50%,60%); animation-duration:3s; }
+ .balloon:nth-child(3):before { color:hsl(139,30%,50%);  }
+
+ .balloon:nth-child(4){ background:hsl(59,50%,58%); animation-duration:4.5s; }
+ .balloon:nth-child(4):before { color:hsl(59,30%,52%);  }
+
+ .balloon:nth-child(5){ background:hsl(23,55%,57%); animation-duration:5s; }
+ .balloon:nth-child(5):before { color:hsl(23,44%,46%);  }
+
+
+
+    </style>
+  </head>
+
+  <body style="">
+    <audio preload="auto" class="a" src="./sound.mp3"></audio>
+    <div class="container">
+
+      <div class="card centered">
+        <div class="card-body">
+          <div class="jumbotron">
+            <div>
+              <h1 class="typed-text" style="white-space: pre; display:inline;"></h1>
+            </div>
+
+            <div class="progress">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </body>
+
+  <script>
+
+    var options = {
+      strings: ['', 'Hello ^1000 \n\n ^500 Welcome to the technical demo of NedaWish. ^500 \nPlease make sure to turn on your sounds for this technical demo. \n <button onClick="ready()"> I have turned on my sounds and I am ready </button>'],
+      typeSpeed: 40
+    };
+    var typed = new Typed('.typed-text', options);
+
+
+    function ready(){
+
+      var audio = $("audio");
+
+      audio[0].play();
+      let dur = audio[0] . duration;
+
+      for(var i = 0; i <5; i++){
+        setTimeout(function(){
+
+          var audio = new Audio('./sound.mp3');
+          audio.play();
+
+        }, i*50 + 100);
+      }
+
+      console.log("test"  + dur);
+
+      for(var i = 0; i <5; i++){
+        setTimeout(function(){
+
+          var audio2 = new Audio('./sound.mp3');
+          audio2.play();
+
+        }, i*dur*1000 + dur*1000 );
+
+      }
+
+      var options = {
+        strings: ['', 'Happy Birthday Sam!'],
+        typeSpeed: 40
+      };
+      var typed = new Typed('.typed-text', options);
+
+
+      for(var i = 0; i < 50; i++){
+        $('.container').append('<div class="balloon"></div>');
+        var h = rand(1, 360);
+        var s = rand(0, 100);
+        var l = rand(0, 100);
+        var style = $('<style>.balloon:nth-child(' + i+ '){ background:rgb(' + h + ',' + s + ',' + l +  '); animation-duration:5s; }.balloon:nth-child(' + i +':before { color:rgb(' + h + ',' + s + ',' + l +  ');  }</style>');
+        $('html > head').append(style);
+
+      }
+
+
+      
+          var audio = new Audio('./b.mp3');
+          audio.play();
+
+
+    }
+
+    function rand(min, max) {
+      return min + Math.random() * (max - min);
+  }
+
+
+  </script>
+</html>
+
+
