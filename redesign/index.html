@@ -1,103 +1,130 @@
 <!doctype html>
 <html lang="en">
 
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+                           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="./dist/bundle.css">
     <script src="https://kit.fontawesome.com/9f57fae147.js" crossorigin="anonymous"></script>
 
     <title>Shahan.ca</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container-fluid">
-        <div class="nameRow row pt-1 pt-md-5 ">
+      <div class="nameRow row  pt-2 pt-md-2 ">
 
-            <div class=" col-sm-12 m-0">
-                <h1 class=" row mainName m-0">
-                    Shahan
-                </h1>
-                <h1 class="row mainName m-0"> <span class="lastName">Neda<span class="dahandeh">dahandeh</span></span>
-                </h1>
-                <div class=" row socialBar m-2">
-                    <a href="https://github.com/shahanneda" target="_blank"><i class="fab fa-github fa-5x"></i></a>
-                    <br>
-                    <h2 class="underText ">A young progammer with a curious and keen eye to learn</h2>
+        <div class=" col-sm-12 m-0">
+          <h1 class=" row mainName m-0">
+            Shahan
+          </h1>
+          <h1 class="row mainName m-0"> <span class="lastName">Neda<span class="dahandeh">dahandeh</span></span>
+          </h1>
+          <!-- <div class=" row socialBar m&#45;2"> -->
+          <!--     <a href="https://github.com/shahanneda" target="_blank"><i class="fab fa&#45;github fa&#45;5x"></i></a> -->
+          <!-- </div> -->
+          <div class="row m-2">
+            <h2 class="underText ">A young progammer with a curious and keen eye to learn</h2>
+          </div>
 
-                </div>
-
-            </div>
         </div>
-        <div class="row projectsRow ">
-            <div class="col m-0 p-0">
-                <h3 class="sectionTitle w-100 pl-4 p-2">Projects</h3>
-                <div class="projectsCounter">
+      </div>
+      <div class="row projectsRow ">
+        <div class="col m-0 p-0">
+          <h3 class="sectionTitle w-100 pl-4 p-2">Projects</h3>
+          <div class="projectsCounter">
 
-                </div>
+          </div>
 
-                <div class="card-columns">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    JShahanCraft
-                                </h5>
-                                <p class="card-text">
-                                    A minecraft clone, featuring a 3D game engine made from the ground up in opengl. No
-                                    other librarys were used, just lwjgl which provides a wrapper for opengl.
-                                </p>
-                            </div>
-                        </div>
+          <div class="card-columns">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    JShahanCraft
+
+                    <div class="float-right">
+                      <button type="button" 
+                              class="btn btn-info btn-lg"  
+                              onclick="showModal(this);" 
+                              dataRepoName="JShahanCraft"
+                              >Open Modal</button>
                     </div>
+                  </h5>
+                  <p class="card-text">
+                  A minecraft clone, featuring a 3D game engine made from the ground up in opengl. No
+                  other librarys were used, just lwjgl which provides a wrapper for opengl.
+                  </p>
                 </div>
-
-
+              </div>
             </div>
+          </div>
+
+
         </div>
-        <div class="row projectsRow ">
-            <div class="col m-0 p-0">
-                <h3 class="whoAmI sectionTitle w-100 pl-4 p-2">
+      </div>
+      <div class="row projectsRow ">
+        <div class="col m-0 p-0">
+          <h3 class="whoAmI sectionTitle w-100 pl-4 p-2">
 
 
-                    Who Am I
-                </h3>
+            Who Am I
+          </h3>
 
 
-                <div class="card bg-info m-3">
-                    <div class="card-body">
-                        <p class="">
-                            I am a young programmer living in Vancouver BC. I have been interested in programming,
-                            technology
-                            and robotics since a young age, and I have a plethora of projects all relating to different
-                            techonologies. I am the leader of my schools Robotics club, and I teach programming to kids
-                            volunteerly in my free time. Other than making new projects, I sometimes also play
-                            Tennis at my local Tennis club.
-                        </p>
-                    </div>
-                </div>
+          <div class="card bg-info m-3">
+            <div class="card-body">
+              <p class="">
+              I am a young programmer living in Vancouver BC. I have been interested in programming,
+              technology
+              and robotics since a young age, and I have a plethora of projects all relating to different
+              techonologies. I am the leader of my schools Robotics club, and I teach programming to kids
+              volunteerly in my free time. Other than making new projects, I sometimes also play
+              Tennis at my local Tennis club.
+              </p>
             </div>
+          </div>
         </div>
+      </div>
 
+
+      <div id="project-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"></h4>
+              <button type="button" class="modal-close-button" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body project-modal-body" >
+            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+
+        </div>
+      </div>
 
     </div>
 
 
 
+    <script src="./src/main.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- For rendering markdown  -->
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-</body>
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+  </body>
 
 
 </html>

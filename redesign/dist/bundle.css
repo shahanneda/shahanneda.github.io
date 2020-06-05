@@ -13,38 +13,71 @@
   }
 }
 .mainName {
-  color: #98b0ff;
+  color: #FFFFFF;
   font-size: 5em;
 }
 
 .lastName {
-  color: #6d8fff;
+  color: #FFFFFF;
 }
 
 body {
-  background-color: #94B0DA;
+  background-color: #000000;
+  color: #FFFFFF;
 }
 
 .nameRow {
-  background-color: #2E4057;
+  margin-top: 0px;
+  background-color: #000000;
 }
 
 .sectionTitle {
-  color: #8ab9da;
-  background-color: #587ba8;
+  color: background1;
+  background-color: #393E41;
 }
 
 .dahandeh {
-  color: #587df7;
+  color: #FFFFFF;
 }
 
 .card {
-  background-color: #59c9a5;
-  color: #ecfff9;
+  background-color: #7F7979;
+  color: white;
 }
 
 .underText {
   font-size: 3em;
+}
+
+.bg-info {
+  background-color: #7F7979;
+}
+
+.card-body {
+  background-color: #7F7979;
+}
+
+.modal-content {
+  background: #000000;
+  height: auto;
+  min-height: 100%;
+}
+
+.modal-dialog {
+  max-width: 850px;
+  margin: 2rem auto;
+}
+
+.btn-default {
+  background-color: white;
+}
+
+.modal-close-button {
+  color: white;
+  background: none;
+  border: none;
+  font-size: x-large;
+  font-weight: bolder;
 }
 
 /*# sourceMappingURL=bundle.css.map */

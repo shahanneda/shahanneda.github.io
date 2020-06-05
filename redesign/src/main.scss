@@ -1,20 +1,43 @@
-$body-color:blue ;
-$teal-blue: rgb(152, 176, 255);
-$background: #94B0DA;
-$background2:rgb(88, 123, 168);
-$duke: rgb(138, 185, 218);
-$cobalt: #090C9B;
-$char: #2E4057;
-$lastName:rgb(109, 143, 255); 
-$dahandehLastName: rgb(88, 125, 247);
-$cardBackground: #0A2463;
+// $body-color:blue ;
+// $teal-blue: #040F0F;
+// $background: #181C21;
+// $background2:#040f0f;
+// $duke: rgb(20, 136, 219);
+// $cobalt: #090C9B;
+// $char: #051111;
+// $lastName:rgb(109, 143, 255); 
+// $dahandehLastName: rgb(88, 125, 247);
+// $cardBackground: #0A2463;
+
+$background1: #000000;
+$background2: #393E41;
+$background3: #7F7979;
+
+$text1: #FFFFFF;
+$text2: #CCF2FF;
+
+
+
+
+
+
+// $body-color:blue ;
+// $teal-blue: rgb(152, 176, 255);
+// $background: #94B0DA;
+// $background2:rgb(88, 123, 168);
+// $duke: rgb(20, 136, 219);
+// $cobalt: #090C9B;
+// $char: #2E4057;
+// $lastName:rgb(109, 143, 255); 
+// $dahandehLastName: rgb(88, 125, 247);
+// $cardBackground: #0A2463;
 
 // @media (max-width: @screen-xs) {
 //   body{font-size: 10px;}
 // }
 
 // @media (max-width: @screen-sm) {
-  
+
 // }
 // /* Large desktops and laptops */
 // @media (min-width: 1200px) {
@@ -42,33 +65,67 @@ $cardBackground: #0A2463;
   body{font-size: 8px;}
 }
 .mainName{
-  color: $teal-blue;
+  color: $text1;
   font-size: 5em;
 }
 .lastName{
-  color: $lastName;
+  color: $text1;
 }
 body{
-  background-color: $background;
+  background-color: $background1;
+  color: $text1;
 }
 .nameRow{
   // margin-top: 50%;
+  margin-top: 0px;
   // padding: 10%;jj
-  background-color: $char;
+  background-color: $background1;
 }
 
 .sectionTitle{
-  color:$duke;
+  color: background1;;
   background-color: $background2;
 
 }
 .dahandeh{
- color:$dahandehLastName; 
+  color: $text1; 
 }
 .card{
-  background-color: #59c9a5;
-  color:#ecfff9;
+  background-color: $background3;
+  color: white;
 }
 .underText{
   font-size: 3em;
+
+}
+.bg-info{
+  background-color: $background3;
+}
+.card-body{
+  background-color: $background3;
+}
+
+.modal{
+}
+.modal-content{
+  background: $background1;
+  height: auto;
+  min-height: 100%;
+}
+.modal-dialog {
+  max-width: 850px;
+  margin: 2rem auto;
+}  
+
+
+.btn-default{
+  background-color:white;
+}
+
+.modal-close-button{
+  color:white;
+  background:none;
+  border:none;
+  font-size: x-large;
+  font-weight: bolder;
 }
