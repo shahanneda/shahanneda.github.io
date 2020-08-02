@@ -11,10 +11,13 @@
 
 $background1: #000000;
 $background2: #393E41;
-$background3: #7F7979;
+$background3: #2F2D2D;
 
 $text1: #FFFFFF;
 $text2: #CCF2FF;
+
+$card-header-title: #4a4a4a;
+
 
 
 
@@ -64,25 +67,39 @@ $text2: #CCF2FF;
 @media (max-width: 480px) {
   body{font-size: 8px;}
 }
-.mainName{
+
+@media(max-height: 500px){
+  .projects-row{
+    margin-top: 10vh;
+  }
+}
+
+.projects-row{
+  height:100vh;
+
+
+}
+.main-name{
   color: $text1;
   font-size: 5em;
 }
-.lastName{
+.last-name{
   color: $text1;
 }
 body{
   background-color: $background1;
   color: $text1;
 }
-.nameRow{
+.name-row{
   // margin-top: 50%;
   margin-top: 0px;
   // padding: 10%;jj
   background-color: $background1;
+  padding: 3rem;
+  padding-bottom: 0rem;
 }
 
-.sectionTitle{
+.section-title{
   color: background1;;
   background-color: $background2;
 
@@ -94,12 +111,12 @@ body{
   background-color: $background3;
   color: white;
 }
-.underText{
+.under-text{
   font-size: 3em;
 
 }
 .bg-info{
-  background-color: $background3;
+  background-color: $background3 !important;
 }
 .card-body{
   background-color: $background3;
@@ -132,4 +149,27 @@ body{
 
 .modal-header{
   background-color: $background2;
+}
+
+.full-height-name{
+  height: 100vh;
+}
+
+.social-bar{
+  margin: 5px;
+  margin-bottom: 1px;
+}
+.social-icon{
+  margin: 10px;
+}
+.who-am-i-header{
+  background-color: $card-header-title ;
+}
+
+
+.card-columns > .card > .card-body{
+  height: 30vh;
+}
+.card-columns > .card > .card-body > .card-text{
+  font-size: 0.9rem;
 }

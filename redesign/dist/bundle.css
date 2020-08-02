@@ -12,12 +12,21 @@
     font-size: 8px;
   }
 }
-.mainName {
+@media (max-height: 500px) {
+  .projects-row {
+    margin-top: 10vh;
+  }
+}
+.projects-row {
+  height: 100vh;
+}
+
+.main-name {
   color: #FFFFFF;
   font-size: 5em;
 }
 
-.lastName {
+.last-name {
   color: #FFFFFF;
 }
 
@@ -26,12 +35,14 @@ body {
   color: #FFFFFF;
 }
 
-.nameRow {
+.name-row {
   margin-top: 0px;
   background-color: #000000;
+  padding: 3rem;
+  padding-bottom: 0rem;
 }
 
-.sectionTitle {
+.section-title {
   color: background1;
   background-color: #393E41;
 }
@@ -41,20 +52,20 @@ body {
 }
 
 .card {
-  background-color: #7F7979;
+  background-color: #2F2D2D;
   color: white;
 }
 
-.underText {
+.under-text {
   font-size: 3em;
 }
 
 .bg-info {
-  background-color: #7F7979;
+  background-color: #2F2D2D !important;
 }
 
 .card-body {
-  background-color: #7F7979;
+  background-color: #2F2D2D;
 }
 
 .modal-content {
@@ -82,6 +93,31 @@ body {
 
 .modal-header {
   background-color: #393E41;
+}
+
+.full-height-name {
+  height: 100vh;
+}
+
+.social-bar {
+  margin: 5px;
+  margin-bottom: 1px;
+}
+
+.social-icon {
+  margin: 10px;
+}
+
+.who-am-i-header {
+  background-color: #4a4a4a;
+}
+
+.card-columns > .card > .card-body {
+  height: 30vh;
+}
+
+.card-columns > .card > .card-body > .card-text {
+  font-size: 0.9rem;
 }
 
 /*# sourceMappingURL=bundle.css.map */
