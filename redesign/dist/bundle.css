@@ -129,7 +129,7 @@ body {
   text-align: center;
   flex-direction: column;
   color: white;
-  background-color: #181B1B;
+  background-color: #302d2d;
 }
 @media (min-width: 992px) {
   .navbar {
