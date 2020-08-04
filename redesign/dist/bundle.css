@@ -41,6 +41,11 @@ body {
   padding: 3rem;
   padding-bottom: 0rem;
 }
+@media (max-width: 767px) {
+  .name-row {
+    padding-left: 0;
+  }
+}
 
 .section-title {
   color: background1;
@@ -125,8 +130,14 @@ body {
     margin-left: 10vw;
   }
 }
+.navbar-link {
+  color: white;
+  display: block;
+  margin: 10px 0px;
+}
+
 .navbar {
-  text-align: center;
+  text-align: left;
   flex-direction: column;
   color: white;
   background-color: black;
@@ -141,16 +152,14 @@ body {
     width: 10vw;
     border-right: white solid 1px;
   }
-  .navbar .navbar-link {
-    color: white;
-    display: block;
-  }
   .navbar .navbar-collapse {
     display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: auto;
+    align-items: flex-start;
     justify-content: flex-start;
+    width: 100%;
+    margin-top: 10vh;
+    margin-bottom: auto;
+    margin-left: 8px;
   }
   .navbar .navbar-collapse .navbar-nav {
     flex-direction: column;
@@ -164,6 +173,10 @@ body {
 
 .navbar-toggler-icon > .fas {
   color: white;
+}
+
+.card-body {
+  font-size: 0.9rem;
 }
 
 /*# sourceMappingURL=bundle.css.map */

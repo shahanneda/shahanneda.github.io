@@ -97,6 +97,10 @@ body{
   background-color: $background1;
   padding: 3rem;
   padding-bottom: 0rem;
+  @media(max-width: 767px){
+    padding-left: 0;
+  }
+
 }
 
 .section-title{
@@ -184,8 +188,15 @@ body{
   .container-fluid{
     margin-left: 10vw;
   }
+}
+
+.navbar-link{
+  color:white;
+  display:block;
 
 
+
+  margin: 10px 0px;
 }
 .navbar{
 
@@ -198,17 +209,16 @@ body{
     width:10vw;
     border-right: white solid 1px;
 
-
-    .navbar-link{
-      color:white;
-      display:block;
-    }
     .navbar-collapse{
       display: flex;
-      align-items: center;
-      width: 100%;
-      margin-bottom: auto;
+      align-items: flex-start;
       justify-content: flex-start;
+
+      width: 100%;
+      margin-top: 10vh;
+      margin-bottom: auto;
+      margin-left:  8px;
+
 
       .navbar-nav{
         flex-direction:column;
@@ -219,7 +229,7 @@ body{
 
 
   }
-  text-align:center;
+  text-align:left;
   flex-direction: column;
   color: white;;
   background-color: black;
@@ -232,4 +242,8 @@ body{
 
 .navbar-toggler-icon > .fas{
   color:white;
+}
+.card-body{
+  font-size: 0.9rem;
+
 }
