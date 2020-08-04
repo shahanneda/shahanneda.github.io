@@ -11,3 +11,10 @@ function showModal(obj){
     console.log(marked('# Test \n **testing**'));
   });
 }
+
+
+$(document).ready(function (){
+  $('.navbar-toggler').click(function(){ // when clicking the menu button show the menu
+    $('.navbar-collapse').toggleClass("show");
+  });
+});
