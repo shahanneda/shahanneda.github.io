@@ -196,24 +196,23 @@ body{
     display: flex;
     height:100vh;
     width:10vw;
+    border-right: white solid 1px;
 
 
     .navbar-link{
       color:white;
       display:block;
-
     }
     .navbar-collapse{
       display: flex;
       align-items: center;
       width: 100%;
       margin-bottom: auto;
-      justify-content: center;
+      justify-content: flex-start;
 
       .navbar-nav{
         flex-direction:column;
         width:100%;
-
       }
 
     }
@@ -223,7 +222,14 @@ body{
   text-align:center;
   flex-direction: column;
   color: white;;
-  background-color: #302d2d;
+  background-color: black;
 }
 
 
+.main-content{
+  width: auto;
+}
+
+.navbar-toggler-icon > .fas{
+  color:white;
+}
