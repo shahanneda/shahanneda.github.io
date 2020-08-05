@@ -185,4 +185,10 @@ body {
   margin: 5px;
 }
 
+code {
+  font-size: 87.5% !important;
+  color: #e83e8c !important;
+  word-wrap: break-word;
+}
+
 /*# sourceMappingURL=bundle.css.map */
