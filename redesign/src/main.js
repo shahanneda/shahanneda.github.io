@@ -8,6 +8,12 @@ function showModal(obj){
     console.log(data);
     $(".project-modal-body").html(marked( data));
     $(".modal-title").html(repoName);
+
+    $(".project-modal-body").find("img").each(function (){
+      $(this).addClass("projects-img");
+    });
+
+
     console.log(marked('# Test \n **testing**'));
   });
 }

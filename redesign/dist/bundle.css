@@ -179,4 +179,10 @@ body {
   font-size: 0.9rem;
 }
 
+.projects-img {
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+}
+
 /*# sourceMappingURL=bundle.css.map */
