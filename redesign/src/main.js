@@ -14,6 +14,9 @@ function showModal(obj){
     });
 
 
+    $(".github-button-link").attr("href", "https://github.com/shahanneda/" + repoName);
+
+
     console.log(marked('# Test \n **testing**'));
   });
 }

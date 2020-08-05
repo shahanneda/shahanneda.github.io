@@ -191,4 +191,8 @@ code {
   word-wrap: break-word;
 }
 
+.github-button {
+  float: left;
+}
+
 /*# sourceMappingURL=bundle.css.map */
