@@ -16,6 +16,7 @@ $card-header-title: #253B54;
 
 // $background2: #393E41;
 // $background3: #2F2D2D;
+// $card-header-title: #4a4a4a;
 
 $text1: #FFFFFF;
 $text2: #CCF2FF;
@@ -110,7 +111,7 @@ body{
 
 .section-title{
   color: background1;;
-  background-color: $background2;
+  background-color: $card-header-title;
 
 }
 .dahandeh{
