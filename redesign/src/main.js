@@ -23,7 +23,17 @@ function showModal(obj){
 
 
 $(document).ready(function (){
-  $('.navbar-toggler').click(function(){ // when clicking the menu button show the menu
+  $('.navbar-toggler').on("click", function(){ // when clicking the menu button show the menu
+    console.log("dd");
     $('.navbar-collapse').toggleClass("show");
   });
+
+  $('.navbar-link').on("click", function(){ // when clicking the menu button show the menu
+    console.log("dd");
+    $('.navbar-collapse').toggleClass("show");
+  });
+
 });
+
+
+

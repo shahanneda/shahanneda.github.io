@@ -19,6 +19,7 @@
 }
 .skills-row {
   height: 100vh;
+  margin-top: 1vh;
 }
 
 .main-name {
@@ -196,6 +197,7 @@ code {
 }
 
 .skills-list {
+  padding: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
