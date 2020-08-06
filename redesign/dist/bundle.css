@@ -17,10 +17,6 @@
     margin-top: 10vh;
   }
 }
-.projects-row {
-  height: 100vh;
-}
-
 .skills-row {
   height: 100vh;
 }
@@ -216,6 +212,10 @@ li {
 .skills-list-item-card {
   background-color: #253546;
   padding: 31px;
+}
+
+.skills-page-subsection {
+  margin: 10px 10px;
 }
 
 /*# sourceMappingURL=bundle.css.map */
