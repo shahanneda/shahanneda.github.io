@@ -35,13 +35,13 @@
 }
 
 body {
-  background-color: #000000;
+  background-color: #1b2836;
   color: #FFFFFF;
 }
 
 .name-row {
   margin-top: 0px;
-  background-color: #000000;
+  background-color: #1b2836;
   padding: 3rem;
   padding-bottom: 0rem;
 }
@@ -53,7 +53,7 @@ body {
 
 .section-title {
   color: background1;
-  background-color: #393E41;
+  background-color: #141D27;
 }
 
 .dahandeh {
@@ -61,7 +61,7 @@ body {
 }
 
 .card {
-  background-color: #2F2D2D;
+  background-color: #23374F;
   color: white;
 }
 
@@ -70,15 +70,15 @@ body {
 }
 
 .bg-info {
-  background-color: #2F2D2D !important;
+  background-color: #23374F !important;
 }
 
 .card-body {
-  background-color: #2F2D2D;
+  background-color: #23374F;
 }
 
 .modal-content {
-  background: #000000;
+  background: #1b2836;
   height: auto;
   min-height: 100%;
 }
@@ -101,7 +101,7 @@ body {
 }
 
 .modal-header {
-  background-color: #393E41;
+  background-color: #141D27;
 }
 
 .full-height-name {
@@ -118,7 +118,7 @@ body {
 }
 
 .who-am-i-header {
-  background-color: #4a4a4a;
+  background-color: #253B54;
 }
 
 .card-columns > .card > .card-body {
@@ -144,7 +144,7 @@ body {
   text-align: left;
   flex-direction: column;
   color: white;
-  background-color: black;
+  background-color: #1b2836;
 }
 @media (min-width: 992px) {
   .navbar {
