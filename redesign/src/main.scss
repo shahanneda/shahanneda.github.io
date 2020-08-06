@@ -76,9 +76,11 @@ $card-header-title: #4a4a4a;
 
 .projects-row{
   height:100vh;
-
-
 }
+.skills-row{
+  height:100vh;
+}
+
 .main-name{
   color: $text1;
   font-size: 5em;
@@ -264,8 +266,5 @@ code {
 
 
 .github-button{
-
   float:left;
-
-
 }
