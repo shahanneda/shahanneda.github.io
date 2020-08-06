@@ -12,7 +12,9 @@
 $background1: #1b2836;
 $background2: #141D27;
 $background3: #23374F;
+$background4: #000000;
 $card-header-title: #253B54;
+$skills-card-background: rgb(37, 53, 70);
 
 // $background2: #393E41;
 // $background3: #2F2D2D;
@@ -271,4 +273,25 @@ code {
 
 .github-button{
   float:left;
+}
+
+.skills-list{
+
+  display:flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+
+}
+li.skills-lang-item {
+    margin: 10px;
+}
+
+li{
+  list-style-type:none;
+}
+
+
+.skills-list-item-card {
+    background-color: $skills-card-background;
+    padding: 31px;
 }
