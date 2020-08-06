@@ -180,12 +180,23 @@ body{
 }
 
 
+.card-columns{
+  margin: 10px;
+  .card{
+    @media (min-width: 576px){
+      height: 30vh;
+
+    }
+  }
+
+}
+
 .card-columns > .card > .card-body{
-  height: 30vh;
 }
 .card-columns > .card > .card-body > .card-text{
   font-size: 0.9rem;
 }
+
 .crypted-mail:hover{
 
 }

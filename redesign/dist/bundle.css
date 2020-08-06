@@ -118,8 +118,13 @@ body {
   background-color: #253B54;
 }
 
-.card-columns > .card > .card-body {
-  height: 30vh;
+.card-columns {
+  margin: 10px;
+}
+@media (min-width: 576px) {
+  .card-columns .card {
+    height: 30vh;
+  }
 }
 
 .card-columns > .card > .card-body > .card-text {
