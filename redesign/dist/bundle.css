@@ -261,4 +261,8 @@ h5.languages-card-title {
   font-size: 4rem;
 }
 
+.lang-project-card:hover {
+  background-color: #375271;
+}
+
 /*# sourceMappingURL=bundle.css.map */
