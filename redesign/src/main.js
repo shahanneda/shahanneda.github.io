@@ -51,6 +51,7 @@ function showLangModal(obj){
 
 $(document).ready(function (){
 
+  addLoadingToModal(); // add the loading incase the user clicks modal
   // NOTE: in the future, if i exceed 100 repos, I need to add a loop here to go through the different pages, by adding &page=2 or 3 or whatever
   repos = new Map();
   $.get("https://api.github.com/users/shahanneda/repos?per_page=100", function(data) {
@@ -77,15 +78,17 @@ $(document).ready(function (){
     $('.navbar-collapse').toggleClass("show");
   });
 
-
-  $('#project-modal').on('hidden.bs.modal', function(){
-
-    $(".project-modal-body").html("<i class='fas fa-spinner fa-3x fa-spin'></i>");
-    $(".modal-title").html("Loading");
-
+ 
+  //add loading when modal is closed for the next time  
+  $('#project-modal').on('hidden.bs.modal', function(){ 
+    addLoadingToModal();
   });
 });
 
+function addLoadingToModal(){
+    $(".project-modal-body").html("<i class='fas fa-spinner fa-3x fa-spin'></i>");
+    $(".modal-title").html("Loading");
+}
 
 function compareProjectsByDate( a, b ) {
   let aDate = new Date(a.pushed_at);
