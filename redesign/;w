@@ -3,7 +3,6 @@ let repos;
 function showModal(obj){
   $("#project-modal").modal().show();
   let repoName = obj.getAttribute('dataRepoName');
-  $(".github-button-link").show();
 
   $.get( "https://raw.githubusercontent.com/shahanneda/" + repoName+ "/master/README.md", function( data ) {
     console.log(repoName);
@@ -26,19 +25,23 @@ function showModal(obj){
 
 function showLangModal(obj){
   $("#project-modal").modal().show();
-  $(".github-button-link").hide();
-
   let langName = obj.getAttribute('dataLangName');
 
-  let projects = repos.get(langName).sort(compareProjectsByDate).reverse(); // sort with custom thing for the date and reverse
+  let projects = repos.get(langName);
+
   let futureHtml = "<div class='language-modal-list-container'>"
 
+  projects.sort(compareProjectsByDate);
 
-  for(let project of projects){
+  for(let i in projects){
+    let project = projects[i];
+
+    
 
     let description = project.description  == null? "" : project.description;
+    console.log(project)
 
-    futureHtml += `<a href="${project.html_url}" target="_blank"> <div class="card card-body lang-project-card">\
+    futureHtml += `<a href="${project.html_url}" target="_blank"> <div class="card card-body">\
     <h3 class="lang-project-card-title">${project.name}</h3> <p>${description} </p></div> </a>`;
   }
   futureHtml += "</div>";
@@ -81,8 +84,9 @@ $(document).ready(function (){
 
 
 function compareProjectsByDate( a, b ) {
-  let aDate = new Date(a.pushed_at);
-  let bDate = new Date(b.pushed_at);
+  console.log(a, b)
+  let aDate = Date(a.pushedAt);
+  let bDate = Date(b.pushedAt);
   if ( aDate< bDate ){
     return -1;
   }
