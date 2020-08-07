@@ -77,6 +77,9 @@ $(document).ready(function (){
     $('.navbar-collapse').toggleClass("show");
   });
 
+
+  $('#project-modal').on('hidden.bs.modal', function(){
+  });
 });
 
 

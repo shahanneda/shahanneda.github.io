@@ -101,8 +101,10 @@ body {
   background-color: #141D27;
 }
 
-.full-height-name {
-  height: 100vh;
+@media500in-width : 500px) {
+  .full-height-name {
+    height: 100vh;
+  }
 }
 
 .social-bar {
@@ -116,6 +118,10 @@ body {
 
 .who-am-i-header {
   background-color: #253B54;
+}
+
+.card-header {
+  font-size: 1rem;
 }
 
 .card-columns {
@@ -140,6 +146,7 @@ body {
   color: white;
   display: block;
   margin: 10px 0px;
+  font-size: 1rem;
 }
 
 .navbar {

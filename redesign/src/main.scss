@@ -84,6 +84,7 @@ $text2: #CCF2FF;
   // height:100vh;
 }
 .skills-row{
+
   height:100vh;
   margin-top:1vh;
 }
@@ -165,7 +166,9 @@ body{
 }
 
 .full-height-name{
-  height: 100vh;
+  @media500in-width: 500px) {
+    height: 100vh;
+  }
 }
 
 .social-bar{
@@ -177,6 +180,9 @@ body{
 }
 .who-am-i-header{
   background-color: $card-header-title ;
+}
+.card-header{
+  font-size: 1rem;
 }
 
 
@@ -213,10 +219,8 @@ body{
 .navbar-link{
   color:white;
   display:block;
-
-
-
   margin: 10px 0px;
+  font-size: 1rem;
 }
 .navbar{
 
@@ -277,9 +281,9 @@ body{
 
 }
 code {
-    font-size: 87.5% !important;
-    color: #e83e8c !important;
-    word-wrap: break-word;
+  font-size: 87.5% !important;
+  color: #e83e8c !important;
+  word-wrap: break-word;
 }
 
 
@@ -303,14 +307,14 @@ code {
 
 }
 .skills-lang-item {
-    margin: 10px;
-    max-width: 47%;
-    @media(max-width: 800px){
-      justify-content: center;
-      flex-direction: column;
-      max-width: 100%;
-      // align-items:center;
-    }
+  margin: 10px;
+  max-width: 47%;
+  @media(max-width: 800px){
+    justify-content: center;
+    flex-direction: column;
+    max-width: 100%;
+    // align-items:center;
+  }
 }
 
 li{
@@ -319,8 +323,8 @@ li{
 
 
 .skills-list-item-card {
-    background-color: $skills-card-background;
-    padding: 31px;
+  background-color: $skills-card-background;
+  padding: 31px;
 }
 .skills-page-subsection{
   margin: 10px 10px;
@@ -329,9 +333,9 @@ li{
 }
 
 h5.languages-card-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 
