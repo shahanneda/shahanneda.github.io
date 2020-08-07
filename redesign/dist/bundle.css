@@ -206,10 +206,25 @@ code {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
 }
-li.skills-lang-item {
+@media (max-width: 800px) {
+  .skills-list {
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.skills-lang-item {
   margin: 10px;
+  max-width: 47%;
+}
+@media (max-width: 800px) {
+  .skills-lang-item {
+    justify-content: center;
+    flex-direction: column;
+    max-width: 100%;
+  }
 }
 
 li {

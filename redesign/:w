@@ -293,24 +293,18 @@ code {
   display:flex;
   flex-direction:row;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: center;
 
-  @media(max-width: 800px){
-    justify-content: center;
-    flex-direction: column;
+  @media(max-width: 570px){
+    // flex-direction: column;
     // align-items:center;
+
   }
 
 }
 .skills-lang-item {
     margin: 10px;
-    max-width: 47%;
-    @media(max-width: 800px){
-      justify-content: center;
-      flex-direction: column;
-      max-width: 100%;
-      // align-items:center;
-    }
+    max-width: 50%;
 }
 
 li{
