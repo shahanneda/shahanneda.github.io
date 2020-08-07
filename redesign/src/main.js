@@ -44,7 +44,7 @@ function showLangModal(obj){
   futureHtml += "</div>";
   $(".modal-title").html(langName);
   $(".project-modal-body").html(futureHtml);
-  
+
 
 }
 
@@ -79,6 +79,10 @@ $(document).ready(function (){
 
 
   $('#project-modal').on('hidden.bs.modal', function(){
+
+    $(".project-modal-body").html("<i class='fas fa-spinner fa-3x fa-spin'></i>");
+    $(".modal-title").html("Loading");
+
   });
 });
 
