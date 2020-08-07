@@ -27,13 +27,14 @@
           <li class="navbar-item">
             <a class="navbar-link " href="#home">Home</a>
           </li>
+
           <li class="navbar-item">
             <a class="navbar-link " href="#projects">Projects</a>
           </li>
+
           <li class="navbar-item">
             <a class="navbar-link " href="#skills">Skills</a>
           </li>
-
           <!--           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#awards">Awards</a>
             </li> -->
@@ -262,10 +263,18 @@
               <ul class="skills-list">
                 <li class="skills-lang-item">
                   <div class="card skills-list-item-card card-body">
-                    <h5 class="languages-card-title ">Java</h5>
+                    <h5 class="languages-card-title ">
+                      <span>Java</span>
+                    <button type="button" 
+                            class="btn btn-info btn-lg"  
+                            onclick="showLangModal(this);" 
+                            dataLangName="Java"
+                            >Public Projects</button>
+
+                    </h5>
                     <p>
-                    Java is one of my main languages, I have been making projects in java for over 5 years, and I have lots of exprience with the language as can be seen with my numerous projects with it.
-                    </p>
+                    Java is one of my main languages, I have been making projects in java for over 5 years, and I have lots of experience with the language as can be seen with my numerous projects with it.
+                    </p>             
                   </div>
                 </li>
 
@@ -328,7 +337,7 @@
 
 
           <div class=" languages-list card skills-page-subsection ">
-            <div class="card-header"> Librarys and Frameworks</div>
+            <div class="card-header"> Libraries and Frameworks</div>
 
 
             <ul class="skills-list">

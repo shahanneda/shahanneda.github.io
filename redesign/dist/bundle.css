@@ -225,4 +225,10 @@ li {
   margin: 10px 10px;
 }
 
+h5.languages-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /*# sourceMappingURL=bundle.css.map */
