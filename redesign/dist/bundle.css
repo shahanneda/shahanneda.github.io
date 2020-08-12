@@ -225,12 +225,14 @@ code {
 .skills-lang-item {
   margin: 10px;
   max-width: 47%;
+  min-width: 47%;
 }
 @media (max-width: 800px) {
   .skills-lang-item {
     justify-content: center;
     flex-direction: column;
     max-width: 100%;
+    min-width: 100%;
   }
 }
 
