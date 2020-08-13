@@ -232,7 +232,6 @@ code {
     justify-content: center;
     flex-direction: column;
     max-width: 100%;
-    min-width: 100%;
   }
 }
 
