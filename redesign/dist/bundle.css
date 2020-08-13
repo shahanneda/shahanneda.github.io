@@ -101,7 +101,7 @@ body {
   background-color: #141D27;
 }
 
-@media (min-width: 500px) {
+@media (min-height: 700px) {
   .full-height-name {
     height: 100vh;
   }
