@@ -17,6 +17,10 @@
     margin-top: 10vh;
   }
 }
+a {
+  color: #98caff;
+}
+
 .skills-row {
   height: 100vh;
   margin-top: 1vh;
@@ -101,7 +105,7 @@ body {
   background-color: #141D27;
 }
 
-@media (min-height: 700px) {
+@media (min-height: 700px) and (min-width: 700px) {
   .full-height-name {
     height: 100vh;
   }
@@ -129,7 +133,7 @@ body {
 }
 @media (min-width: 576px) {
   .card-columns .card {
-    height: 30vh;
+    min-height: 30vh;
   }
 }
 
