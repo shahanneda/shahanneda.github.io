@@ -173,7 +173,7 @@ body{
 
 .full-height-name{
   @media (min-height: 700px) and (min-width: 700px) {
-    height: 100vh;
+    min-height: 100vh;
   }
 }
 
@@ -185,8 +185,18 @@ body{
   margin: 10px;
 }
 .who-am-i-header{
-  background-color: $card-header-title ;
+  font-size: 4rem; 
 }
+
+.who-am-i-body{
+  font-size: 1.5rem;
+}
+
+.hi-wrapper{
+  padding: 2rem;
+
+}
+
 .card-header{
   font-size: 1rem;
 }

@@ -107,7 +107,7 @@ body {
 
 @media (min-height: 700px) and (min-width: 700px) {
   .full-height-name {
-    height: 100vh;
+    min-height: 100vh;
   }
 }
 
@@ -121,7 +121,15 @@ body {
 }
 
 .who-am-i-header {
-  background-color: #253B54;
+  font-size: 4rem;
+}
+
+.who-am-i-body {
+  font-size: 1.5rem;
+}
+
+.hi-wrapper {
+  padding: 2rem;
 }
 
 .card-header {
