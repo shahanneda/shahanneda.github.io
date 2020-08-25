@@ -283,4 +283,29 @@ h5.languages-card-title {
   margin-left: 10px;
 }
 
+/* ---  Scroll Bar --- */
+/* chrome background */
+::-webkit-scrollbar {
+  width: 20px;
+  background: #23374f;
+}
+
+/* chrome track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px #6890FF;
+  border-radius: 1px;
+}
+
+/* chrome handle */
+::-webkit-scrollbar-thumb {
+  background: #4c6e97;
+  border-radius: 10px;
+}
+
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: #4c6e97 #23374f;
+}
+
 /*# sourceMappingURL=bundle.css.map */
