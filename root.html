@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Root</title>
+    <style>
+        #current{
+            height: 50vh;
+            overflow: scroll;
+            display: inline-block;
+            border: 1px solid black;
+        }
+
+    </style>
 </head>
 <body>
     <h2 id="current"> </h2>
@@ -24,18 +33,12 @@ function run(){
 function root(number){
     let diff = 10;
     let last = 0
-    let inc = 1;
-    console.log("test");
+    let inc = number/2;
     let i  = 0
+    document.getElementById("current").innerHTML = "";
     while(Math.abs(diff) > 0.0001){
-        i++;
-        if (i > 100){
-            break;
-        }
-
-
         let newA = last + inc;
-        document.getElementById("current").innerHTML= "trying: " + newA;
+        document.getElementById("current").innerHTML+= "trying: " + newA + "<br>";
         console.log("newA", newA)
         diff = newA * newA - number;
         console.log("diff", diff)
