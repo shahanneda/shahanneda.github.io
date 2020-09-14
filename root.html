@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root</title>
+</head>
+<body>
+    <h2 id="current"> </h2>
+    <input type="number" id="numberInput"/>
+    <button onClick="run()">Run</button>
+    <h2 id="answer"></h2>
+
+    
+</body>
+<script>
+
+function run(){
+    console.log("runn")
+    let r = root(document.getElementById("numberInput").value);
+    document.getElementById("answer").innerHTML = "The square root is "  + r;
+}
+
+function root(number){
+    let diff = 10;
+    let last = 0
+    let inc = 1;
+    console.log("test");
+    let i  = 0
+    while(Math.abs(diff) > 0.0001){
+        i++;
+        if (i > 100){
+            break;
+        }
+
+
+        let newA = last + inc;
+        document.getElementById("current").innerHTML= "trying: " + newA;
+        console.log("newA", newA)
+        diff = newA * newA - number;
+        console.log("diff", diff)
+        if(diff > 0){
+            inc = inc/2;
+        }else{
+            last = newA;
+        }
+    }
+
+    return last;
+
+}
+
+
+</script>
+</html>
