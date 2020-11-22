@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMES</title>
+</head>
+
+<body>
+
+    webhook url: <input id="url" type="text"
+        value="https://discord.com/api/webhooks/779918541381566484/EtKo6Xu4iMOHj8dJCw8MnvDkbNkluA3nOhHGeZF-B7xc9qKGw6ntxbpRU4goi9KGvY_p"><br />
+    message: <input type="text" placeholder="Type your message here" id="mes" /><br />
+    image(url): <input type="text" value="https://media.gettyimages.com/photos/frog-eating-a-fly-picture-id175422366?s=612x612" id="imgurl" /><br />
+    <button onClick="send()">send</button>
+    <script>
+        function send() {
+            let url = document.getElementById("url").value;
+            let mes = document.getElementById("mes").value;
+            let img = document.getElementById("imgurl").value;
+            console.log("vals", url, mes);
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: "NSender",
+                    avatar_url: img,
+                    content: mes,
+                })
+            })
+                .then(result => {
+                    alert("SENT! " );
+                    console.log("Completed with result:", result);
+                });
+
+        }
+
+    </script>
+</body>
+
+</html>
