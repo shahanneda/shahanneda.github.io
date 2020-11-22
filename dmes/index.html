@@ -11,6 +11,7 @@
 
     webhook url: <input id="url" type="text"
         value="https://discord.com/api/webhooks/779918541381566484/EtKo6Xu4iMOHj8dJCw8MnvDkbNkluA3nOhHGeZF-B7xc9qKGw6ntxbpRU4goi9KGvY_p"><br />
+    username: <input type="text" value="NSender" id="username" /><br />
     message: <input type="text" placeholder="Type your message here" id="mes" /><br />
     image(url): <input type="text" value="https://media.gettyimages.com/photos/frog-eating-a-fly-picture-id175422366?s=612x612" id="imgurl" /><br />
     <button onClick="send()">send</button>
@@ -19,6 +20,7 @@
             let url = document.getElementById("url").value;
             let mes = document.getElementById("mes").value;
             let img = document.getElementById("imgurl").value;
+            let username = document.getElementById("username").value;
             console.log("vals", url, mes);
             fetch(url, {
                 method: "POST",
@@ -26,7 +28,7 @@
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    username: "NSender",
+                    username: username,
                     avatar_url: img,
                     content: mes,
                 })
