@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>PixelBreaker</title>
+    <title>Unity WebGL Player | PixelBreaker</title>
   </head>
-  <body style="text-align: center; margin: 0px; overflow:hidden;">
-    <canvas id="unity-canvas" style="width: 100vw; height: 100vh; background: url('Build/Pixel-Breaker-2019.jpg') center / cover"></canvas>
+  <body style="text-align: center">
+    <canvas id="unity-canvas" style="width: 960px; height: 600px; background: url('Build/Pixel-Breaker-2019.jpg') center / cover"></canvas>
     <script src="Build/Pixel-Breaker-2019.loader.js"></script>
     <script>
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Pixel-Breaker-2019.data.gz",
-        frameworkUrl: "Build/Pixel-Breaker-2019.framework.js.gz",
-        codeUrl: "Build/Pixel-Breaker-2019.wasm.gz",
+        dataUrl: "Build/Pixel-Breaker-2019.data.br",
+        frameworkUrl: "Build/Pixel-Breaker-2019.framework.js.br",
+        codeUrl: "Build/Pixel-Breaker-2019.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "GCC",
         productName: "PixelBreaker",
