@@ -1,15 +1,23 @@
-
-<!DOCTYPE HTML>
-<html lang="en-US">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="0;" url="http://shahan.ca/PlanNow/client/">
-        <script type="text/javascript">
-            window.location.href = "http://shahan.ca/PlanNow/client/"
-        </script>
-        <title>PlanNow</title>
-    </head>
-    <body>
-        If you are not redirected automatically, follow this <a href='http://shahan.ca/PlanNow/client/'>link</a>.
-    </body>
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>PixelBreaker</title>
+  </head>
+  <body style="text-align: center; margin: 0px; overflow:hidden;">
+    <canvas id="unity-canvas" style="width: 100vw; height: 100vh; background: url('Build/Pixel-Breaker-2019.jpg') center / cover"></canvas>
+    <script src="Build/Pixel-Breaker-2019.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/Pixel-Breaker-2019.data.gz",
+        frameworkUrl: "Build/Pixel-Breaker-2019.framework.js.gz",
+        codeUrl: "Build/Pixel-Breaker-2019.wasm.gz",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "GCC",
+        productName: "PixelBreaker",
+        productVersion: "1.2",
+      });
+    </script>
+  </body>
 </html>
