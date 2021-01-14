@@ -308,4 +308,14 @@ html {
   scrollbar-color: #4c6e97 #23374f;
 }
 
+footer.ga-note {
+  position: absolute;
+  right: 0px;
+  font-size: 0.85em;
+  background: #23374f;
+  padding: 7px;
+  border: #597b9e 1px solid;
+  border-radius: 15px;
+}
+
 /*# sourceMappingURL=bundle.css.map */
