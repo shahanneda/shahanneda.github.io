@@ -3,9 +3,14 @@ let repos;
 function showModal(obj){
   $("#project-modal").modal().show();
   let repoName = obj.getAttribute('dataRepoName');
-  $(".github-button-link").show();
+  let username = repoName == "glmath.github.io" ? "glmath" : "shahanneda"; // special case for glmath, since hosted on seprtate account
 
-  $.get( "https://raw.githubusercontent.com/shahanneda/" + repoName+ "/master/README.md", function( data ) {
+  $(".github-button-link").show();
+  
+  
+  let staticUrl = "https://raw.githubusercontent.com/" + username + "/";
+
+  $.get(staticUrl + repoName+ "/master/README.md", function( data ) {
     console.log(repoName);
     console.log(data);
     $(".project-modal-body").html(marked( data));
@@ -20,10 +25,9 @@ function showModal(obj){
     });
 
 
-    $(".github-button-link").attr("href", "https://github.com/shahanneda/" + repoName);
+    $(".github-button-link").attr("href", "https://github.com/"+ username + "/" + repoName);
 
 
-    console.log(marked('# Test \n **testing**'));
   });
 }
 
