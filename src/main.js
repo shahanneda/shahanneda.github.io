@@ -12,7 +12,11 @@ function showModal(obj){
     $(".modal-title").html(repoName);
 
     $(".project-modal-body").find("img").each(function (){
-      $(this).addClass("projects-img");
+      $(this).addClass("projects-img"); // fix image styling
+    });
+    
+    $(".project-modal-body").find("a").each(function (){
+      $(this).attr("target", "_blank"); // fix links 
     });
 
 
