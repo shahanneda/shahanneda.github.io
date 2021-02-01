@@ -251,6 +251,9 @@ code {
 li {
   list-style-type: none;
 }
+projects-modal-body li {
+  list-style-type: circle;
+}
 
 .skills-list-item-card {
   background-color: #253546;

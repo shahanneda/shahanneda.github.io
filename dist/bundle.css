@@ -252,6 +252,10 @@ li {
   list-style-type: none;
 }
 
+.project-modal-body li {
+  list-style-type: circle;
+}
+
 .skills-list-item-card {
   background-color: #253546;
   padding: 31px;
