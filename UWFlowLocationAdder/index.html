@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+	Shahan NedaDahandeh, Aug 2021
+-->
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Waterloo Location Adder</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+
+
+
+
+
+
+</head>
+
+<body>
+	<h1>UWFlow Calender Export Location Adder</h1>
+	<button type="button" class="collapsible" onclick="toggleHelp()">Toggle Help</button>
+
+	<div id="app-input">
+		<div id="how-to-use" style="display:none">
+			This site is for changing the .ics file given by uwFlow to include the location of your classes, for ease of use
+			in google calendar or other calendar apps.
+			<h4>For normal use:</h4>
+			<ul>
+
+				<li>Go to uwflow, and import your classes</li>
+				<li>Go to <a href="https://uwflow.com/profile" target="_blank">your profile</a></li>
+				<li>Click <b>export as -> iCalender</b></li>
+				<li>Upload file on this site</li>
+				<li>Enter class locations and click Download Updated Calender</li>
+				<li>For Google Calender: Click Settings, import and export, and select the updated file</li>
+			</ul>
+			<h4>For removing events from a calender from an ics file</h4>
+			To remove events accidentally added to google calender from an ics file, first upload the ics file to this site,
+			then download the "Delete All Events files" by clicking the button,
+			then import this file into google calender with the same steps as before. By the way, Google calender takes a few
+			minutes to update and remove the event.
+		</div>
+
+		<input type="file" id="file" name="Calander ICS Event" accept=".ics" />
+		<div id="class-container">
+		</div>
+		<Button onclick="download()">Download Updated Calender</Button>
+		<Button style="background-color: rgb(255, 114, 95);" onclick="downloadDeleteFile()">Download Delete All Events
+			File</Button>
+	</div>
+	<!-- <div id="app" -->
+
+</body>
+
+<!-- File Saver Library-->
+<script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+
+<script>
+	let input = document.getElementById("file");
+	let classes = null;
+
+	input.addEventListener("change", handleFileChange);
+
+	function handleFileChange(event) {
+		let file = event.target.files[0];
+
+		if (!file) {
+			alert("Please input a valid .ICS file.")
+			return;
+		}
+
+		getFileContents(file, parseFileAndDisplayOptions)
+	}
+
+
+
+	function getFileContents(file, callback) {
+		var reader = new FileReader();
+		reader.readAsText(file, "UTF-8");
+
+		reader.onload = function (evt) {
+			callback(evt.target.result);
+		}
+
+		reader.onerror = function (evt) {
+			alert("An error happend when opening the file.")
+		}
+	}
+
+	function parseFileAndDisplayOptions(fileContents) {
+		classes = fileContents.split("SUMMARY:");
+		let classContainer = document.getElementById("class-container");
+
+		let prev = "";
+		classContainer.innerHTML = "";
+		classes.forEach(function (cls) {
+			let clsSplit = cls.split("\n");
+			if (!clsSplit) {
+				return;
+			}
+			let title = clsSplit[0];
+			if (title === prev || title === "BEGIN:VCALENDAR\r") {
+				return;
+			}
+
+
+			let location = clsSplit[5].split(":")[1];
+			classContainer.innerHTML += `<div>${title} <input type="text" value="${location}" data-className="${title}" oninput="changeClassLocation(this)"/> </div>`
+			prev = title;
+		})
+	}
+
+
+	function changeClassLocation(input) {
+		let title = input.getAttribute("data-className");
+		console.log(title)
+
+
+
+		classes.forEach(function (cls, index, array) {
+			let clsSplit = cls.split("\n");
+			if (!clsSplit) {
+				return;
+			}
+			let clsTitle = clsSplit[0];
+			if (clsTitle.trim() !== title.trim()) {
+				return
+			}
+
+
+			clsSplit[5] = "LOCATION:" + input.value + "\r";
+			array[index] = clsSplit.join("\n")
+		})
+
+	}
+
+	function getFullText(classes) {
+		return classes.join("SUMMARY:")
+	}
+
+	function download() {
+		setTimeout(function () { // wait for the processing to be finished
+			if (classes) {
+				saveAsFile(getFullText(classes), "uwCalanderWithLocation.ics")
+			}
+		}, 500);
+	}
+
+	function saveAsFile(text, filename) {
+		let charset = "text/plain;charset=utf-8"
+		try {
+			var b = new Blob([text], { type: charset });
+			saveAs(b, filename);
+		} catch (e) {
+			console.log(e)
+			window.open("data:" + charset + "," + encodeURIComponent(text), '_blank', '');
+		}
+	}
+
+	function downloadDeleteFile() {
+		let classesCopy = classes.slice() // copy array since we dont want to change original
+		classesCopy.forEach(function (cls, index, array) {
+			let clsSplit = cls.split("\n");
+			if (!clsSplit) {
+				return;
+			}
+			let title = clsSplit[0];
+			if (title === "BEGIN:VCALENDAR\r") {
+				return;
+			}
+
+			clsSplit[8] = "STATUS:CANCELLED\n";
+			array[index] = clsSplit.join("\n");
+		})
+
+		saveAsFile(getFullText(classesCopy), "uwCalanderRemoveEvents.ics")
+	}
+
+	function toggleHelp() {
+		let current = document.getElementById("how-to-use").style.display;
+
+		if (current == "none") {
+			document.getElementById("how-to-use").style.display = "block";
+		} else {
+			document.getElementById("how-to-use").style.display = "none";
+		}
+	}
+
+</script>
+
+</html>
