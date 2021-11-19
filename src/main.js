@@ -13,7 +13,7 @@ function showModal(obj){
   $.get(staticUrl + repoName+ "/master/README.md", function( data ) {
     console.log(repoName);
     console.log(data);
-    $(".project-modal-body").html(marked( data));
+    $(".project-modal-body").html(marked.parse( data));
     $(".modal-title").html(repoName);
 
     $(".project-modal-body").find("img").each(function (){
