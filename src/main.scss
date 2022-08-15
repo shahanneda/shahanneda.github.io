@@ -205,13 +205,24 @@ body{
 
 .card-columns{
   margin: 10px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
   .card{
+    max-width: 31%;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      width: 100%;
+    }
+
     @media (min-width: 576px){
       min-height: 30vh;
     }
-
   }
-
 }
 
 .card-columns > .card > .card-body{
