@@ -270,7 +270,7 @@ li {
 }
 
 .skills-list-item-card {
-  background-color: #253546;
+  background-color: rgb(37, 53, 70);
   padding: 31px;
 }
 
@@ -323,6 +323,7 @@ html {
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-color: #4c6e97 #23374f;
+  scroll-behavior: smooth;
 }
 
 footer.ga-note {
