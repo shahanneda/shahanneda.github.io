@@ -1,6 +1,7 @@
 let repos;
 
 function showModal(obj){
+  console.log("SHOW MODAL!!")
   $("#project-modal").modal().show();
   let repoName = obj.getAttribute('dataRepoName');
   let username = repoName == "glmath.github.io" ? "glmath" : "shahanneda"; // special case for glmath, since hosted on seprtate account
@@ -11,8 +12,8 @@ function showModal(obj){
   let staticUrl = "https://raw.githubusercontent.com/" + username + "/";
 
   $.get(staticUrl + repoName+ "/master/README.md", function( data ) {
-    console.log(repoName);
-    console.log(data);
+    // console.log(repoName);
+    // console.log(data);
     $(".project-modal-body").html(marked.parse( data));
     $(".modal-title").html(repoName);
 
