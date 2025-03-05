@@ -156,6 +156,21 @@
 
         <div class="card-columns">
 
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                Wallpaper MCP
+                <div class="float-right">
+                  <a href="https://github.com/shahanneda/wallpaper-mcp" target="_blank">
+                    <button type="button" class="btn btn-info btn-lg view-details-button">Details</button>
+                  </a>
+                </div>
+              </h5>
+              <p class="card-text">
+                An MCP server which allows LLM's such as claude to generate and set wallpapers on your computer.
+              </p>
+            </div>
+          </div>
 
           <div class="card">
             <div class="card-body">
@@ -185,6 +200,22 @@
               </h5>
               <p class="card-text">
                 A 3D Gaussian splatting viewer written from scratch using Rust, WebGL and Webassembly. 
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                Semantic Gaussian Splatting
+                <div class="float-right">
+                  <a href="https://www.youtube.com/watch?v=-gLCdh0ZAGI&t=187s" target="_blank">
+                    <button type="button" class="btn btn-info btn-lg view-details-button">Details</button>
+                  </a>
+                </div>
+              </h5>
+              <p class="card-text">
+                One of the first research projects in adding 3D semantic segmentation to 3D gaussian splatting using PyTorch and Segment Anything.
               </p>
             </div>
           </div>
@@ -224,6 +255,41 @@
                 batching, perlin noise world generation, block breaking and placing, lighting, trees, inventory and
                 more.
               </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                VitaTicker
+                <div class="float-right">
+                  <a href="https://apps.apple.com/ca/app/vitaticker/id6705121024" target="_blank">
+                    <button type="button" class="btn btn-info btn-lg view-details-button">Details</button>
+                  </a>
+                </div>
+              </h5>
+              <p class="card-text">
+                An app that tells you what day of your life you're on! I'm currenty on day <span id="dayOfLife"></span>!
+              </p>
+              <script>
+                // Calculate days since March 21, 2003
+                function calculateDayOfLife() {
+                  const birthday = new Date('2003-03-21');
+                  const today = new Date();
+                  
+                  // Calculate the difference in milliseconds
+                  const diffTime = Math.abs(today - birthday);
+                  
+                  // Convert to days and round to whole number
+                  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                  
+                  // Update the span with the calculated day
+                  document.getElementById('dayOfLife').textContent = diffDays;
+                }
+                
+                // Calculate immediately when the page loads
+                calculateDayOfLife();
+              </script>
             </div>
           </div>
 
